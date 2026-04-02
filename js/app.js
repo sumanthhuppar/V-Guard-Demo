@@ -1,6 +1,7 @@
 // ===== V-Guard Store - Application Logic =====
 
 // ===== PRODUCT DATA =====
+// ===== PRODUCT DATA =====
 const products = [
   // Water Heaters
   {
@@ -9,12 +10,12 @@ const products = [
     specs: [["Capacity", "15 Litres"], ["Power", "2000W"], ["Pressure", "8 Bar"], ["Inner Tank", "Glass Lined"], ["Warranty", "5 Years on Tank"]]
   },
   {
-    id: "VG-WH-002", name: "Pebble Shine 25L Water Heater", category: "Water Heaters", price: 10999, originalPrice: 14999, rating: 4.3, reviews: 1876, image: "images/water_heater.png", badge: "New",
+    id: "VG-WH-002", name: "Pebble Shine 25L Water Heater", category: "Water Heaters", price: 10999, originalPrice: 14999, rating: 4.3, reviews: 1876, image: "images/pebble-shine-bg.png", badge: "New",
     description: "V-Guard Pebble Shine 25L geyser with vitreous enamel coated tank. Features multi-function safety valve and thermal cut-out for complete protection.",
     specs: [["Capacity", "25 Litres"], ["Power", "2000W"], ["Pressure", "8 Bar"], ["Inner Tank", "Vitreous Enamel"], ["Warranty", "5 Years on Tank"]]
   },
   {
-    id: "VG-WH-003", name: "Victo Plus 6L Instant Geyser", category: "Water Heaters", price: 4299, originalPrice: 5999, rating: 4.2, reviews: 3210, image: "images/water_heater.png", badge: "",
+    id: "VG-WH-003", name: "Victo Plus 6L Instant Geyser", category: "Water Heaters", price: 4299, originalPrice: 5999, rating: 4.2, reviews: 3210, image: "images/victo_plus.png", badge: "",
     description: "Compact instant water heater ideal for kitchen use. Advanced copper heating element with ISI mark safety compliance.",
     specs: [["Capacity", "6 Litres"], ["Power", "3000W"], ["Heating", "Instant"], ["Element", "Copper"], ["Warranty", "2 Years"]]
   },
@@ -26,12 +27,12 @@ const products = [
     specs: [["Sweep Size", "1200mm"], ["Air Delivery", "230 CMM"], ["Speed", "380 RPM"], ["Power", "75W"], ["Warranty", "2 Years"]]
   },
   {
-    id: "VG-FAN-002", name: "DERA Deco 1200mm Premium Fan", category: "Ceiling Fans", price: 3799, originalPrice: 4999, rating: 4.7, reviews: 1890, image: "images/ceiling_fan.png", badge: "Premium",
+    id: "VG-FAN-002", name: "DERA Deco 1200mm Premium Fan", category: "Ceiling Fans", price: 3799, originalPrice: 4999, rating: 4.7, reviews: 1890, image: "images/deera_deco.png", badge: "Premium",
     description: "Designer ceiling fan with metallic finish and LED light. High-speed motor with superior air delivery for large rooms.",
     specs: [["Sweep Size", "1200mm"], ["Air Delivery", "240 CMM"], ["Speed", "400 RPM"], ["Finish", "Metallic"], ["Warranty", "2 Years"]]
   },
   {
-    id: "VG-FAN-003", name: "Ecowind BLDC Energy Saver Fan", category: "Ceiling Fans", price: 4299, originalPrice: 5499, rating: 4.8, reviews: 2670, image: "images/ceiling_fan.png", badge: "Eco",
+    id: "VG-FAN-003", name: "Ecowind BLDC Energy Saver Fan", category: "Ceiling Fans", price: 4299, originalPrice: 5499, rating: 4.8, reviews: 2670, image: "images/ecowind.png", badge: "Eco",
     description: "BLDC motor ceiling fan consuming only 35W power. Remote controlled with timer, sleep mode, and boost function.",
     specs: [["Sweep Size", "1200mm"], ["Power", "35W"], ["Motor", "BLDC"], ["Remote", "Yes"], ["Warranty", "3 Years"]]
   },
@@ -43,12 +44,12 @@ const products = [
     specs: [["Capacity", "4 KVA"], ["Input Range", "90V-290V"], ["Display", "Digital LED"], ["Suitable For", "1.5 Ton AC"], ["Warranty", "3 Years"]]
   },
   {
-    id: "VG-STB-002", name: "VND 400 Digital Stabilizer", category: "Stabilizers", price: 2799, originalPrice: 3599, rating: 4.3, reviews: 3420, image: "images/stabilizer.png", badge: "",
+    id: "VG-STB-002", name: "VND 400 Digital Stabilizer", category: "Stabilizers", price: 2799, originalPrice: 3599, rating: 4.3, reviews: 3420, image: "images/VND.png", badge: "",
     description: "Wall-mountable digital stabilizer for AC up to 1.5 ton with advanced microprocessor control and surge protection.",
     specs: [["Capacity", "3 KVA"], ["Input Range", "100V-280V"], ["Display", "LED"], ["Type", "Wall Mount"], ["Warranty", "3 Years"]]
   },
   {
-    id: "VG-STB-003", name: "Mini Crystal Supreme Stabilizer", category: "Stabilizers", price: 1899, originalPrice: 2499, rating: 4.1, reviews: 7800, image: "images/stabilizer.png", badge: "Value",
+    id: "VG-STB-003", name: "Mini Crystal Supreme Stabilizer", category: "Stabilizers", price: 1899, originalPrice: 2499, rating: 4.1, reviews: 7800, image: "images/mini_crystall.png", badge: "Value",
     description: "Compact stabilizer for TV, Computer, and other electronics. Smart voltage correction with built-in thermal overload.",
     specs: [["Capacity", "1 KVA"], ["Input Range", "90V-290V"], ["Suitable For", "TV/Computer"], ["Type", "Desktop"], ["Warranty", "3 Years"]]
   },
@@ -60,7 +61,7 @@ const products = [
     specs: [["Purification", "RO+UV+MB"], ["Storage", "10 Litres"], ["TDS Controller", "Yes"], ["Stages", "7"], ["Warranty", "1 Year"]]
   },
   {
-    id: "VG-WP-002", name: "Rejive RO Water Purifier", category: "Water Purifiers", price: 9999, originalPrice: 13999, rating: 4.4, reviews: 2130, image: "images/water_purifier.png", badge: "",
+    id: "VG-WP-002", name: "Rejive RO Water Purifier", category: "Water Purifiers", price: 9999, originalPrice: 13999, rating: 4.4, reviews: 2130, image: "images/rejive.png", badge: "",
     description: "RO water purifier with 8L storage, 7-stage purification, and mineral enhancer technology for healthy drinking water.",
     specs: [["Purification", "RO+UF"], ["Storage", "8 Litres"], ["Stages", "7"], ["Filter Life", "6000 Litres"], ["Warranty", "1 Year"]]
   },
