@@ -176,20 +176,22 @@ document.addEventListener('DOMContentLoaded', () => {
   checkUser();
   initScrollEffects();
   
-  // Page-specific initialization
-  const page = getPageName();
-  if (page === 'products') {
+  // Page-specific initialization using element detection (safer than URL)
+  if (document.getElementById('allProductsGrid')) {
     renderAllProducts();
     const catSearch = getQueryParam('category');
     if (catSearch) setTimeout(() => filterByCategory(catSearch), 100);
   }
-  if (page === 'product-detail') {
+
+  if (document.getElementById('productDetail')) {
     const id = getQueryParam('id');
     if (id) renderProductDetail(id);
   }
-  if (page === 'cart') renderCartItems();
-  if (page === 'checkout') renderCheckoutSummary();
-  if (page === 'payment') renderPaymentSummary();
+
+  if (document.getElementById('cartItems')) renderCartItems();
+  if (document.getElementById('checkoutSummary')) renderCheckoutSummary();
+  if (document.getElementById('paymentSummary')) renderPaymentSummary();
+
   
   setTimeout(() => { if (!user && document.getElementById('registerModal')) document.getElementById('registerModal').classList.add('open'); }, 5000);
 });
@@ -210,11 +212,13 @@ let isSliding = false;
 let isPaused = false;
 
 function initHeroSlider() {
+  const hero = document.getElementById('hero');
+  if (!hero) return; // Exit if not on home page
+
   // Start auto-slide
   heroInterval = setInterval(autoSlide, SLIDE_INTERVAL);
 
   // Pause on hover
-  const hero = document.getElementById('hero');
   hero.addEventListener('mouseenter', () => {
     isPaused = true;
     clearInterval(heroInterval);
@@ -976,15 +980,17 @@ function closeModal() {
 
 // ===== MOBILE MENU =====
 function toggleMobileMenu() {
-  document.getElementById('navMenu').classList.toggle('open');
-  document.getElementById('hamburger').classList.toggle('active');
+  const menu = document.getElementById('navMenu');
+  const burger = document.getElementById('hamburger');
+  if (menu) menu.classList.toggle('open');
+  if (burger) burger.classList.toggle('active');
 }
 
 // ===== SCROLL EFFECTS =====
 function initScrollEffects() {
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
-    nav.classList.toggle('scrolled', window.scrollY > 50);
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
   });
 }
 
@@ -1066,12 +1072,12 @@ function updateAuthUI() {
   const nameEl = document.getElementById('userName');
 
   if (user) {
-    userEl.style.display = 'flex';
-    loginBtn.style.display = 'none';
-    nameEl.textContent = 'Hi ' + user.name.split(' ')[0];
+    if (userEl) userEl.style.display = 'flex';
+    if (loginBtn) loginBtn.style.display = 'none';
+    if (nameEl) nameEl.textContent = 'Hi ' + user.name.split(' ')[0];
   } else {
-    userEl.style.display = 'none';
-    loginBtn.style.display = 'flex';
+    if (userEl) userEl.style.display = 'none';
+    if (loginBtn) loginBtn.style.display = 'flex';
   }
 }
 
