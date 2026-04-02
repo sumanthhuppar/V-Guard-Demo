@@ -2,54 +2,91 @@
 
 // ===== PRODUCT DATA =====
 const products = [
-  { id:1, name:"Divino DG 15L Storage Water Heater", category:"Water Heaters", price:8499, originalPrice:11999, rating:4.5, reviews:2340, image:"images/water_heater.png", badge:"Bestseller",
+  // Water Heaters
+  { id:"VG-WH-001", name:"Divino DG 15L Storage Water Heater", category:"Water Heaters", price:8499, originalPrice:11999, rating:4.5, reviews:2340, image:"images/water_heater.png", badge:"Bestseller",
     description:"The V-Guard Divino is a premium 15-litre storage water heater with advanced safety features. Its glass-lined inner tank ensures long-lasting performance while the high-density PUF insulation keeps water hot for longer.",
     specs:[["Capacity","15 Litres"],["Power","2000W"],["Pressure","8 Bar"],["Inner Tank","Glass Lined"],["Warranty","5 Years on Tank"]]},
-  { id:2, name:"Pebble Shine 25L Water Heater", category:"Water Heaters", price:10999, originalPrice:14999, rating:4.3, reviews:1876, image:"images/water_heater.png", badge:"New",
+  { id:"VG-WH-002", name:"Pebble Shine 25L Water Heater", category:"Water Heaters", price:10999, originalPrice:14999, rating:4.3, reviews:1876, image:"images/water_heater.png", badge:"New",
     description:"V-Guard Pebble Shine 25L geyser with vitreous enamel coated tank. Features multi-function safety valve and thermal cut-out for complete protection.",
     specs:[["Capacity","25 Litres"],["Power","2000W"],["Pressure","8 Bar"],["Inner Tank","Vitreous Enamel"],["Warranty","5 Years on Tank"]]},
-  { id:3, name:"Victo Plus 6L Instant Geyser", category:"Water Heaters", price:4299, originalPrice:5999, rating:4.2, reviews:3210, image:"images/water_heater.png", badge:"",
+  { id:"VG-WH-003", name:"Victo Plus 6L Instant Geyser", category:"Water Heaters", price:4299, originalPrice:5999, rating:4.2, reviews:3210, image:"images/water_heater.png", badge:"",
     description:"Compact instant water heater ideal for kitchen use. Advanced copper heating element with ISI mark safety compliance.",
     specs:[["Capacity","6 Litres"],["Power","3000W"],["Heating","Instant"],["Element","Copper"],["Warranty","2 Years"]]},
-  { id:4, name:"Glado 400 1200mm Ceiling Fan", category:"Ceiling Fans", price:2899, originalPrice:3999, rating:4.6, reviews:4521, image:"images/ceiling_fan.png", badge:"Bestseller",
+
+  // Ceiling Fans
+  { id:"VG-FAN-001", name:"Glado 400 1200mm Ceiling Fan", category:"Ceiling Fans", price:2899, originalPrice:3999, rating:4.6, reviews:4521, image:"images/ceiling_fan.png", badge:"Bestseller",
     description:"High-performance ceiling fan with aerodynamic blade design delivering 230 CMM air delivery. Energy-efficient motor with powder-coated finish.",
     specs:[["Sweep Size","1200mm"],["Air Delivery","230 CMM"],["Speed","380 RPM"],["Power","75W"],["Warranty","2 Years"]]},
-  { id:5, name:"DERA Deco 1200mm Premium Fan", category:"Ceiling Fans", price:3799, originalPrice:4999, rating:4.7, reviews:1890, image:"images/ceiling_fan.png", badge:"Premium",
+  { id:"VG-FAN-002", name:"DERA Deco 1200mm Premium Fan", category:"Ceiling Fans", price:3799, originalPrice:4999, rating:4.7, reviews:1890, image:"images/ceiling_fan.png", badge:"Premium",
     description:"Designer ceiling fan with metallic finish and LED light. High-speed motor with superior air delivery for large rooms.",
     specs:[["Sweep Size","1200mm"],["Air Delivery","240 CMM"],["Speed","400 RPM"],["Finish","Metallic"],["Warranty","2 Years"]]},
-  { id:6, name:"Ecowind BLDC Energy Saver Fan", category:"Ceiling Fans", price:4299, originalPrice:5499, rating:4.8, reviews:2670, image:"images/ceiling_fan.png", badge:"Eco",
+  { id:"VG-FAN-003", name:"Ecowind BLDC Energy Saver Fan", category:"Ceiling Fans", price:4299, originalPrice:5499, rating:4.8, reviews:2670, image:"images/ceiling_fan.png", badge:"Eco",
     description:"BLDC motor ceiling fan consuming only 35W power. Remote controlled with timer, sleep mode, and boost function.",
     specs:[["Sweep Size","1200mm"],["Power","35W"],["Motor","BLDC"],["Remote","Yes"],["Warranty","3 Years"]]},
-  { id:7, name:"VG Crystal Plus 4KVA Stabilizer", category:"Stabilizers", price:3499, originalPrice:4999, rating:4.4, reviews:5670, image:"images/stabilizer.png", badge:"Top Rated",
+
+  // Stabilizers
+  { id:"VG-STB-001", name:"VG Crystal Plus 4KVA Stabilizer", category:"Stabilizers", price:3499, originalPrice:4999, rating:4.4, reviews:5670, image:"images/stabilizer.png", badge:"Top Rated",
     description:"Digital voltage stabilizer for AC up to 1.5 ton. Wide working range of 90V-290V with intelligent time delay system.",
     specs:[["Capacity","4 KVA"],["Input Range","90V-290V"],["Display","Digital LED"],["Suitable For","1.5 Ton AC"],["Warranty","3 Years"]]},
-  { id:8, name:"VND 400 Digital Stabilizer", category:"Stabilizers", price:2799, originalPrice:3599, rating:4.3, reviews:3420, image:"images/stabilizer.png", badge:"",
+  { id:"VG-STB-002", name:"VND 400 Digital Stabilizer", category:"Stabilizers", price:2799, originalPrice:3599, rating:4.3, reviews:3420, image:"images/stabilizer.png", badge:"",
     description:"Wall-mountable digital stabilizer for AC up to 1.5 ton with advanced microprocessor control and surge protection.",
     specs:[["Capacity","3 KVA"],["Input Range","100V-280V"],["Display","LED"],["Type","Wall Mount"],["Warranty","3 Years"]]},
-  { id:9, name:"Mini Crystal Supreme Stabilizer", category:"Stabilizers", price:1899, originalPrice:2499, rating:4.1, reviews:7800, image:"images/stabilizer.png", badge:"Value",
+  { id:"VG-STB-003", name:"Mini Crystal Supreme Stabilizer", category:"Stabilizers", price:1899, originalPrice:2499, rating:4.1, reviews:7800, image:"images/stabilizer.png", badge:"Value",
     description:"Compact stabilizer for TV, Computer, and other electronics. Smart voltage correction with built-in thermal overload.",
     specs:[["Capacity","1 KVA"],["Input Range","90V-290V"],["Suitable For","TV/Computer"],["Type","Desktop"],["Warranty","3 Years"]]},
-  { id:10, name:"Zenora RO+UV+MB Water Purifier", category:"Water Purifiers", price:12999, originalPrice:17999, rating:4.6, reviews:1540, image:"images/water_purifier.png", badge:"New",
+
+  // Water Purifiers
+  { id:"VG-WP-001", name:"Zenora RO+UV+MB Water Purifier", category:"Water Purifiers", price:12999, originalPrice:17999, rating:4.6, reviews:1540, image:"images/water_purifier.png", badge:"New",
     description:"Advanced 7-stage RO+UV+Mineral Booster water purifier with 10L storage tank. TDS controller for optimized purification.",
     specs:[["Purification","RO+UV+MB"],["Storage","10 Litres"],["TDS Controller","Yes"],["Stages","7"],["Warranty","1 Year"]]},
-  { id:11, name:"Rejive RO Water Purifier", category:"Water Purifiers", price:9999, originalPrice:13999, rating:4.4, reviews:2130, image:"images/water_purifier.png", badge:"",
+  { id:"VG-WP-002", name:"Rejive RO Water Purifier", category:"Water Purifiers", price:9999, originalPrice:13999, rating:4.4, reviews:2130, image:"images/water_purifier.png", badge:"",
     description:"RO water purifier with 8L storage, 7-stage purification, and mineral enhancer technology for healthy drinking water.",
     specs:[["Purification","RO+UF"],["Storage","8 Litres"],["Stages","7"],["Filter Life","6000 Litres"],["Warranty","1 Year"]]},
-  { id:12, name:"Ignite 750W Mixer Grinder", category:"Kitchen Appliances", price:3499, originalPrice:4999, rating:4.5, reviews:3870, image:"images/mixer_grinder_product.png", badge:"Bestseller",
+
+  // Kitchen Appliances
+  { id:"VG-KA-001", name:"Ignite 750W Mixer Grinder", category:"Kitchen Appliances", price:3499, originalPrice:4999, rating:4.5, reviews:3870, image:"images/mixer_grinder_product.png", badge:"Bestseller",
     description:"Powerful 750W mixer grinder with 3 stainless steel jars. Motor overload protection and ergonomic design for comfortable use.",
     specs:[["Power","750W"],["Jars","3 SS Jars"],["Speed","3 + Pulse"],["Blade","SS"],["Warranty","2 Years"]]},
-  { id:13, name:"Induction Cooktop VIC-15", category:"Kitchen Appliances", price:2199, originalPrice:2999, rating:4.3, reviews:2450, image:"images/induction_cooktop_product.png", badge:"",
+  { id:"VG-KA-002", name:"Induction Cooktop VIC-15", category:"Kitchen Appliances", price:2199, originalPrice:2999, rating:4.3, reviews:2450, image:"images/induction_cooktop_product.png", badge:"",
     description:"1500W induction cooktop with crystal glass surface and push button controls. 7 preset cooking menus with auto-off timer.",
     specs:[["Power","1500W"],["Surface","Crystal Glass"],["Menus","7 Preset"],["Timer","Yes"],["Warranty","1 Year"]]},
-  { id:14, name:"Spray Steam Iron IRS-02", category:"Kitchen Appliances", price:1299, originalPrice:1799, rating:4.2, reviews:4120, image:"images/water_heater.png", badge:"",
+  { id:"VG-KA-003", name:"Spray Steam Iron IRS-02", category:"Kitchen Appliances", price:1299, originalPrice:1799, rating:4.2, reviews:4120, image:"images/water_heater.png", badge:"",
     description:"1200W steam iron with non-stick coated sole plate. Variable steam control and self-cleaning function for easy maintenance.",
     specs:[["Power","1200W"],["Sole Plate","Non-stick"],["Steam","Variable"],["Self-Clean","Yes"],["Warranty","1 Year"]]},
-  { id:15, name:"Self-Priming Pump 1HP", category:"Pumps", price:5999, originalPrice:7999, rating:4.4, reviews:1670, image:"images/stabilizer.png", badge:"",
+  { id:"VG-KA-004", name:"Rice Cooker 1.8L", category:"Kitchen Appliances", price:1999, originalPrice:2899, rating:4.4, reviews:3400, image:"images/water_heater.png", badge:"Value",
+    description:"1.8L electric rice cooker with auto keep-warm function. Comes with measuring cup and rice spoon.",
+    specs:[["Capacity","1.8L"],["Power","700W"],["Cook Pan","Anodized Aluminum"],["Lid","Dome Type"],["Warranty","1 Year"]]},
+
+  // Inverters & Batteries
+  { id:"VG-INV-001", name:"Sinewave Inverter 850VA", category:"Inverters & Batteries", price:4499, originalPrice:5999, rating:4.5, reviews:2600, image:"images/stabilizer.png", badge:"Premium",
+    description:"Pure sinewave inverter for sensitive electronics. Smart battery management system prevents deep discharge.",
+    specs:[["Capacity","850VA"],["Waveform","Pure Sinewave"],["Display","LED Indicators"],["Support","1 Battery"],["Warranty","2 Years"]]},
+  { id:"VG-INV-002", name:"Inverter Battery 150Ah", category:"Inverters & Batteries", price:14999, originalPrice:18999, rating:4.6, reviews:1900, image:"images/water_heater.png", badge:"Top Rated",
+    description:"Tubular inverter battery capable of long power backup. Deep cycle design with low maintenance requirements.",
+    specs:[["Capacity","150Ah"],["Type","Tubular"],["Voltage","12V"],["Maintenance","Low"],["Warranty","3 Years"]]},
+
+  // Pumps
+  { id:"VG-PMP-001", name:"Self-Priming Pump 1HP", category:"Pumps", price:5999, originalPrice:7999, rating:4.4, reviews:1670, image:"images/stabilizer.png", badge:"",
     description:"1HP self-priming monoblock pump suitable for domestic water supply. High suction lift and corrosion-resistant body.",
     specs:[["Power","1 HP"],["Head","35m"],["Suction","8m"],["Type","Self-Priming"],["Warranty","2 Years"]]},
-  { id:16, name:"Submersible Pump VAS-30", category:"Pumps", price:8499, originalPrice:10999, rating:4.5, reviews:890, image:"images/stabilizer.png", badge:"",
+  { id:"VG-PMP-002", name:"Submersible Pump VAS-30", category:"Pumps", price:8499, originalPrice:10999, rating:4.5, reviews:890, image:"images/stabilizer.png", badge:"",
     description:"3-stage submersible pump for borewell applications. Stainless steel construction with energy-efficient motor.",
     specs:[["Power","1 HP"],["Stages","3"],["Material","SS"],["Head","45m"],["Warranty","2 Years"]]},
+
+  // Air Coolers
+  { id:"VG-AC-001", name:"Desert Air Cooler 55L", category:"Air Coolers", price:9999, originalPrice:13499, rating:4.5, reviews:1120, image:"images/water_heater.png", badge:"Summer Special",
+    description:"55-litre desert cooler with dense honeycomb cooling pads. Heavy-duty fan with 4-way air deflection.",
+    specs:[["Capacity","55 Litres"],["Cooling Pad","Honeycomb"],["Air Throw","35 Ft"],["Power","190W"],["Warranty","1 Year"]]},
+
+  // Solar
+  { id:"VG-SOL-001", name:"Solar Water Heater 200LPD", category:"Solar", price:24999, originalPrice:31999, rating:4.7, reviews:540, image:"images/water_heater.png", badge:"Eco Friendly",
+    description:"200LPD non-pressurized solar water heater with high-efficiency evacuated tubes. Zero electricity consumption.",
+    specs:[["Capacity","200 LPD"],["Type","Evacuated Tube"],["Tank Material","SS 304"],["Suitable For","4-5 Pax"],["Warranty","5 Years"]]},
+
+  // Switches
+  { id:"VG-SW-001", name:"Modular Switch Kit", category:"Switches", price:899, originalPrice:1299, rating:4.3, reviews:640, image:"images/stabilizer.png", badge:"",
+    description:"Premium polycarbonate modular switch kit with FR-grade material. Smooth action and long-lasting durability.",
+    specs:[["Material","Polycarbonate"],["Color","Milky White"],["Flame Retardant","Yes"],["Package","1 Switch + 1 Socket"],["Warranty","10 Years"]]}
 ];
 
 const categories = [
@@ -57,8 +94,12 @@ const categories = [
   { name:"Ceiling Fans", icon:"fa-fan", count:3 },
   { name:"Stabilizers", icon:"fa-bolt", count:3 },
   { name:"Water Purifiers", icon:"fa-droplet", count:2 },
-  { name:"Kitchen Appliances", icon:"fa-blender", count:3 },
+  { name:"Kitchen Appliances", icon:"fa-blender", count:4 },
+  { name:"Inverters & Batteries", icon:"fa-car-battery", count:2 },
   { name:"Pumps", icon:"fa-faucet-drip", count:2 },
+  { name:"Air Coolers", icon:"fa-wind", count:1 },
+  { name:"Solar", icon:"fa-solar-panel", count:1 },
+  { name:"Switches", icon:"fa-toggle-on", count:1 },
 ];
 
 // ===== STATE =====
@@ -92,32 +133,75 @@ window.addEventListener('popstate', (e) => {
 
 function handleInitialRoute() {
   const path = window.location.pathname;
-  if (path.startsWith('/product/')) {
-    const parts = path.split('-');
-    const id = parseInt(parts[parts.length - 1]);
-    if (!isNaN(id)) {
-      navigateTo('detail', id, false);
+  if (path.startsWith('/products/')) {
+    const productId = path.split('/')[2];
+    if (productId && products.some(p => p.id === productId)) {
+      navigateTo('detail', productId, false);
     } else {
       navigateTo('home', null, false);
     }
   } else if (path === '/products') {
     navigateTo('products', null, false);
+  } else if (path === '/cart') {
+    navigateTo('home', null, false);
+    toggleCart(); 
   } else if (path === '/checkout') {
     navigateTo('checkout', null, false);
   } else if (path === '/payment') {
     navigateTo('payment', null, false);
-  } else if (path === '/confirmation') {
+  } else if (path === '/order-confirmation' || path === '/confirmation') {
     navigateTo('confirmation', null, false);
+  } else if (path === '/about') {
+    navigateTo('about', null, false);
+  } else if (path === '/support') {
+    navigateTo('support', null, false);
+  } else if (path === '/dealer-locator') {
+    navigateTo('dealer-locator', null, false);
   } else {
     navigateTo('home', null, false);
   }
 }
 
 // ===== NAVIGATION =====
+const PAGE_TITLES = {
+  'home': 'V-Guard Store | Premium Home Appliances',
+  'products': 'All Products | V-Guard Store',
+  'checkout': 'Secure Checkout | V-Guard Store',
+  'cart': 'Your Cart | V-Guard Store',
+  'payment': 'Payment | V-Guard Store',
+  'confirmation': 'Order Confirmed | V-Guard Store',
+  'about': 'About Us | V-Guard Store',
+  'support': 'Support | V-Guard Store',
+  'dealer-locator': 'Dealer Locator | V-Guard Store'
+};
+
 function navigateTo(page, data, pushState = true) {
+  if (page === 'cart') {
+    document.title = PAGE_TITLES['cart'];
+    toggleCart();
+    if (pushState) window.history.pushState({ page: 'cart' }, '', '/cart');
+    return;
+  }
+
   document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active-page'));
   const target = document.getElementById(page + '-page');
-  if (target) target.classList.add('active-page');
+  
+  if (target) {
+    target.classList.add('active-page');
+  } else if (page !== 'detail') {
+    // create skeleton container dynamically if it doesn't exist
+    const skeleton = document.createElement('div');
+    skeleton.id = page + '-page';
+    skeleton.className = 'page-view active-page';
+    skeleton.innerHTML = `<div class="page-content"><div class="container"><section class="section" style="min-height:50vh;text-align:center;padding:100px 0;"><h2>${PAGE_TITLES[page] || page}</h2><p>This page is currently under maintenance.</p></section></div></div>`;
+    document.getElementById('home-page').parentElement.appendChild(skeleton);
+  }
+
+  // For product detail, it uses its own '#detail-page' which exists but needs activation
+  if (page === 'detail') {
+    document.getElementById('detail-page').classList.add('active-page');
+  }
+
   document.querySelectorAll('.nav-menu a').forEach(a => {
     a.classList.toggle('active', a.dataset.page === page);
   });
@@ -136,15 +220,18 @@ function navigateTo(page, data, pushState = true) {
   // History API routing
   if (pushState) {
     let url = `/${page}`;
-    if (page === 'home') url = '/home';
-    if (page === 'detail' && data) {
-      const p = products.find(x => x.id === data);
-      if (p) {
-        const slug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-        url = `/product/${slug}-${p.id}`;
-      }
-    }
+    if (page === 'home') url = '/';
+    if (page === 'detail' && data) url = `/products/${data}`;
+    if (page === 'confirmation') url = '/order-confirmation';
     window.history.pushState({ page, data }, '', url);
+  }
+
+  // Title Update
+  if (page === 'detail' && data) {
+    const p = products.find(x => x.id === data);
+    document.title = p ? `${p.name} | V-Guard Store` : 'Product Not Found | V-Guard Store';
+  } else {
+    document.title = PAGE_TITLES[page] || 'V-Guard Store';
   }
 }
 
@@ -292,9 +379,9 @@ function renderCategories() {
 function createProductCard(p) {
   const discount = Math.round((1 - p.price / p.originalPrice) * 100);
   return `
-    <div class="product-card" onclick="navigateTo('detail', ${p.id})">
+    <div class="product-card" onclick="navigateTo('detail', '${p.id}')">
       ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
-      <button class="product-wishlist" onclick="event.stopPropagation(); toggleWishlist(${p.id})" title="Add to Wishlist">
+      <button class="product-wishlist" onclick="event.stopPropagation(); toggleWishlist('${p.id}')" title="Add to Wishlist">
         <i class="far fa-heart"></i>
       </button>
       <div class="product-img">
@@ -427,10 +514,10 @@ function renderProductDetail(productId) {
         </div>
       </div>
       <div class="detail-actions">
-        <button class="btn btn-primary btn-lg" onclick="addToCart(${p.id}, getQty())">
+        <button class="btn btn-primary btn-lg" onclick="addToCart('${p.id}', getQty())">
           <i class="fas fa-cart-plus"></i> Add to Cart
         </button>
-        <button class="btn btn-accent btn-lg" onclick="addToCart(${p.id}, getQty()); navigateTo('checkout');">
+        <button class="btn btn-accent btn-lg" onclick="addToCart('${p.id}', getQty()); navigateTo('checkout');">
           <i class="fas fa-bolt"></i> Buy Now
         </button>
       </div>
@@ -518,12 +605,12 @@ function renderCartItems() {
           <h4>${p.name}</h4>
           <div class="cart-item-price">₹${(p.price * item.qty).toLocaleString()}</div>
           <div class="cart-item-qty">
-            <button onclick="updateCartQty(${p.id}, -1)">−</button>
+            <button onclick="updateCartQty('${p.id}', -1)">−</button>
             <span>${item.qty}</span>
-            <button onclick="updateCartQty(${p.id}, 1)">+</button>
+            <button onclick="updateCartQty('${p.id}', 1)">+</button>
           </div>
         </div>
-        <button class="cart-item-remove" onclick="removeFromCart(${p.id})" title="Remove"><i class="fas fa-trash-alt"></i></button>
+        <button class="cart-item-remove" onclick="removeFromCart('${p.id}')" title="Remove"><i class="fas fa-trash-alt"></i></button>
       </div>`;
   }).join('');
 }
@@ -577,7 +664,10 @@ function renderPaymentSummary() {
     <div class="summary-item total"><span>Total</span><span>₹${(total + shipping + tax).toLocaleString()}</span></div>`;
 }
 
+let currentPaymentMethod = 'upi';
+
 function selectPayment(el, method) {
+  currentPaymentMethod = method;
   document.querySelectorAll('.payment-option').forEach(o => { o.classList.remove('active'); o.querySelector('input').checked = false; });
   el.classList.add('active');
   el.querySelector('input').checked = true;
@@ -595,25 +685,192 @@ function selectPayment(el, method) {
 }
 
 function placeOrder() {
+  const btn = document.querySelector('button[onclick="placeOrder()"]');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Processing...';
+  }
+
+  const overlay = document.getElementById('payment-modal-container');
+  overlay.innerHTML = `
+    <div class="payment-overlay active" id="paymentOverlayUI">
+      <div class="payment-modal fade-in" id="paymentModalUI">
+        <div class="payment-modal-logo">V-Guard</div>
+        <div id="paymentModalContent" style="width:100%;">
+           <!-- Dynamic content injected here based on method -->
+        </div>
+      </div>
+    </div>
+  `;
+
+  const content = document.getElementById('paymentModalContent');
+
+  if (currentPaymentMethod === 'upi') {
+    content.innerHTML = `
+      <div class="qr-container"><i class="fas fa-qrcode"></i></div>
+      <h3 style="font-size:1.1rem;margin-bottom:8px;">Scan QR code with any UPI app to complete payment</h3>
+      <div class="upi-logos"><i class="fab fa-google-pay"></i> <i class="fas fa-mobile-alt"></i></div>
+      <div class="payment-spinner" style="margin:20px auto 10px; width:30px; height:30px; border-width:3px;"></div>
+      <p style="color:var(--text-light);font-size:0.9rem;">Waiting for payment...</p>
+    `;
+    setTimeout(startProgressiveFlow, 3000);
+  } else if (currentPaymentMethod === 'card') {
+    content.innerHTML = `
+      <h3 style="font-size:1.2rem;margin-bottom:8px;">OTP Verification</h3>
+      <p style="color:var(--text-mid);font-size:0.9rem;">OTP sent to your registered mobile number</p>
+      <div class="otp-inputs">
+        <input type="text" maxlength="1" onkeyup="if(this.value) this.nextElementSibling?.focus()"><input type="text" maxlength="1" onkeyup="if(this.value) this.nextElementSibling?.focus()"><input type="text" maxlength="1" onkeyup="if(this.value) this.nextElementSibling?.focus()"><input type="text" maxlength="1" onkeyup="if(this.value) this.nextElementSibling?.focus()"><input type="text" maxlength="1" onkeyup="if(this.value) this.nextElementSibling?.focus()"><input type="text" maxlength="1">
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" onclick="startProgressiveFlow()">Verify OTP</button>
+      <p style="color:var(--primary);font-size:0.85rem;margin-top:16px;cursor:pointer;">Resend OTP (00:30)</p>
+    `;
+  } else if (currentPaymentMethod === 'netbanking') {
+    content.innerHTML = `
+      <div class="payment-spinner" style="margin:0 auto 20px;"></div>
+      <h3 style="font-size:1.2rem;margin-bottom:8px;">Secure Bank Redirect</h3>
+      <p style="color:var(--text-mid);font-size:0.9rem;">Redirecting to your bank portal securely...</p>
+    `;
+    setTimeout(startProgressiveFlow, 2000);
+  } else if (currentPaymentMethod === 'cod') {
+    finalizeOrderSuccess('Cash on Delivery', true);
+  }
+}
+
+function startProgressiveFlow() {
+  const content = document.getElementById('paymentModalContent');
+  content.innerHTML = `
+    <div class="payment-spinner" style="margin:0 auto 20px;" id="mainSpinner"></div>
+    <h3 style="font-size:1.2rem;margin-bottom:8px;" id="mainStatusText">Processing Your Payment...</h3>
+    <p style="color:var(--text-mid);font-size:0.9rem;">Please do not close or refresh this page</p>
+    <div class="payment-progress-bg"><div class="payment-progress-bar" id="progressBar"></div></div>
+    <div class="payment-steps" id="paymentStepsContainer"></div>
+  `;
+
+  const steps = [
+    "Connecting to payment gateway...",
+    "Verifying payment details...",
+    "Authenticating transaction...",
+    "Processing payment...",
+    "Confirming with bank...",
+    "Payment successful!"
+  ];
+
+  const stepsContainer = document.getElementById('paymentStepsContainer');
+  stepsContainer.innerHTML = steps.map((s,i) => `
+    <div class="pay-step" id="step-${i}">
+      <i class="far fa-clock"></i> <span>${s}</span>
+    </div>
+  `).join('');
+
+  const progress = document.getElementById('progressBar');
+  let currentStep = 0;
+  
+  const interval = setInterval(() => {
+    if (currentStep < steps.length) {
+      const el = document.getElementById(`step-${currentStep}`);
+      el.classList.add('visible');
+      if (currentStep > 0) {
+        // Mark previous step complete
+        const prev = document.getElementById(`step-${currentStep-1}`);
+        prev.classList.add('completed');
+        prev.querySelector('i').className = 'fas fa-check-circle';
+      }
+      progress.style.width = ((currentStep+1) / steps.length * 100) + '%';
+      currentStep++;
+    } else {
+      clearInterval(interval);
+      // Mark last step complete
+      const last = document.getElementById(`step-${steps.length-1}`);
+      last.classList.add('completed');
+      last.querySelector('i').className = 'fas fa-check-circle';
+      document.getElementById('mainSpinner').style.display = 'none';
+      document.getElementById('mainStatusText').textContent = 'Verification Complete';
+      
+      const methodName = currentPaymentMethod === 'card' ? 'Credit / Debit Card' : (currentPaymentMethod === 'upi' ? 'UPI' : 'Net Banking');
+      setTimeout(() => finalizeOrderSuccess(methodName, false), 500);
+    }
+  }, 800); // 800ms per step up to 5 steps, roughly 4 seconds.
+}
+
+function finalizeOrderSuccess(methodName, isCod) {
   const total = getCartTotal();
   const shipping = total > 999 ? 0 : 99;
   const tax = Math.round(total * 0.18);
+  const finalAmount = total + shipping + tax + (isCod ? 49 : 0);
+  const txnId = 'TXN' + Math.floor(Math.random()*100000000).toString().padStart(8, '0');
   const orderId = 'VG-' + Date.now().toString().slice(-6);
+  
+  const content = document.getElementById('paymentModalContent');
+  let confettiHtml = Array.from({length: 40}).map((_, i) => `<div class="confetti" style="left:${Math.random()*100}%; background:hsl(${Math.random()*360}, 80%, 50%); animation: confettiFall ${1+Math.random()*1.5}s ease-in forwards; animation-delay: ${Math.random()*0.3}s"></div>`).join('');
+
+  if (isCod) {
+    content.innerHTML = `
+      ${confettiHtml}
+      <div style="display:flex;justify-content:center"><div class="success-circle"><i class="fas fa-check"></i></div></div>
+      <h3 style="font-size:1.4rem;margin-bottom:12px;color:var(--success);">Order Confirmed! 🎉</h3>
+      <p style="font-size:1.1rem;font-weight:600;margin-bottom:8px;">Pay ₹${finalAmount.toLocaleString()} to delivery agent</p>
+      <p style="color:var(--text-mid);font-size:0.9rem;">Estimated delivery: ${new Date(Date.now() + 5*24*60*60*1000).toDateString()}</p>
+    `;
+  } else {
+    content.innerHTML = `
+      ${confettiHtml}
+      <div style="display:flex;justify-content:center"><div class="success-circle"><i class="fas fa-check"></i></div></div>
+      <h3 style="font-size:1.4rem;margin-bottom:12px;color:var(--success);">Payment Successful! 🎉</h3>
+      <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:4px;">Transaction ID: ${txnId}</p>
+      <p style="font-size:1.1rem;font-weight:600;margin-bottom:4px;">Amount Paid: ₹${finalAmount.toLocaleString()}</p>
+      <p style="color:var(--text-light);font-size:0.85rem;">Paid via ${methodName}</p>
+    `;
+  }
+
+  // Inject Order Details to UI
+  const estDate = new Date(Date.now() + 5*24*60*60*1000).toDateString();
+  const addr = `${document.getElementById('shipFirst').value || 'Customer'} ${document.getElementById('shipLast').value || ''}, ${document.getElementById('shipAddr1').value || 'Delivery Address'}, ${document.getElementById('shipCity').value || 'City'}, PIN: ${document.getElementById('shipPin').value || 'xxxxxx'}`;
+  
   document.getElementById('orderId').textContent = '#' + orderId;
   document.getElementById('orderDetails').innerHTML = `
-    <h3 style="font-size:1rem;font-weight:600;margin-bottom:16px;">Order Details</h3>
+    <h3 style="font-size:1.1rem;font-weight:600;margin-bottom:16px;">Order Summary</h3>
     ${cart.map(item => {
       const p = products.find(x => x.id === item.id);
-      return p ? `<div style="display:flex;justify-content:space-between;padding:8px 0;font-size:0.9rem;border-bottom:1px solid var(--border-light);">
-        <span>${p.name} × ${item.qty}</span><span style="font-weight:600">₹${(p.price*item.qty).toLocaleString()}</span></div>` : '';
+      return p ? `<div style="display:flex; gap:16px; align-items:center; padding:12px 0; border-bottom:1px solid var(--border-light);">
+        <img src="${p.image}" style="width:50px; height:50px; object-fit:contain; border-radius:8px; border:1px solid var(--border-light);">
+        <div style="flex:1;">
+           <div style="font-weight:500;">${p.name}</div>
+           <div style="font-size:0.85rem; color:var(--text-mid);">Qty: ${item.qty}</div>
+        </div>
+        <div style="font-weight:600;">₹${(p.price*item.qty).toLocaleString()}</div>
+      </div>` : '';
     }).join('')}
-    <div style="display:flex;justify-content:space-between;padding:14px 0 0;font-size:1.1rem;font-weight:700;margin-top:8px;">
-      <span>Total Paid</span><span style="color:var(--primary)">₹${(total + shipping + tax).toLocaleString()}</span>
-    </div>`;
-  cart = [];
-  saveCart();
-  updateCartUI();
-  navigateTo('confirmation');
+    <div style="display:flex;justify-content:space-between;padding:16px 0 8px;font-size:1.1rem;font-weight:700;">
+      <span>Total Paid</span><span style="color:var(--primary)">₹${finalAmount.toLocaleString()}</span>
+    </div>
+    
+    <div style="background:var(--bg-light); border-radius:8px; padding:16px; margin-top:20px; text-align:left;">
+       <div style="font-weight:600; margin-bottom:8px; display:flex; align-items:center; gap:8px;"><i class="fas fa-truck" style="color:var(--success)"></i> Delivery Details</div>
+       <div style="font-size:0.9rem; color:var(--text-mid); line-height:1.5;">
+          <strong>Estimated Delivery:</strong> ${estDate}<br>
+          <strong>Address:</strong> ${addr}<br>
+          <strong>Payment Method:</strong> ${methodName}<br>
+          ${!isCod ? `<strong>Transaction ID:</strong> ${txnId}` : ''}
+       </div>
+    </div>
+  `;
+
+  setTimeout(() => {
+    // Fade out modal and navigate!
+    document.getElementById('payment-modal-container').innerHTML = '';
+    
+    cart = [];
+    saveCart();
+    updateCartUI();
+    
+    const btn = document.querySelector('button[onclick="placeOrder()"]');
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-lock"></i> Place Order & Pay';
+    }
+    
+    navigateTo('confirmation');
+  }, 3500);
 }
 
 // ===== SEARCH =====
