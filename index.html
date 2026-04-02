@@ -19,8 +19,7 @@
   <nav class="navbar" id="navbar">
     <div class="container">
       <a href="#" class="nav-logo" onclick="navigateTo('home')">
-        <img src="images/vguard-logo-transparent.png" alt="V-Guard"
-          style="height:48px; width:auto; object-fit:contain;"
+        <img src="images/vguard-logo-transparent.png" alt="V-Guard" style="height:48px; width:auto; object-fit:contain;"
           onerror="this.outerHTML='<span style=\'color:#E31E24;font-weight:800;font-size:1.8rem;\'>V-Guard</span>'">
       </a>
 
@@ -68,40 +67,46 @@
           <a href="#" onclick="navigateTo('home')">Home</a><span class="sep">/</span>
           <span>Cart</span>
         </div>
-        <h1 style="font-size:1.8rem;font-weight:700;margin-bottom:28px;"><i class="fas fa-shopping-cart" style="color:var(--primary)"></i> Your Cart (<span id="cartItemCount">0</span> items)</h1>
-        
-        <div class="cart-page-layout" style="display: grid; grid-template-columns: 60% calc(40% - 32px); gap: 32px; align-items: start;">
-           <div class="cart-items-column" id="cartItems">
-              <!-- Cart Items Injected Here by JS -->
-           </div>
-           
-           <div class="cart-summary-column" id="cartFooter">
-              <div class="order-summary" style="position: sticky; top: 100px;">
-                 <h3 style="font-size:1.1rem;margin-bottom:16px;">Order Summary</h3>
-                 <div class="summary-item"><span>Subtotal</span><span id="cartSubtotalVal">₹0</span></div>
-                 <div class="summary-item"><span>GST (18%)</span><span id="cartGstVal">₹0</span></div>
-                 <div class="summary-item"><span>Delivery</span><span id="cartShippingVal">₹0</span></div>
-                 <div class="summary-item total" style="margin: 16px 0;"><span>Total Amount</span><span id="cartTotal" style="font-size:1.4rem;">₹0</span></div>
-                 
-                 <div class="promo-box" style="display:flex;gap:8px;margin-bottom:20px;">
-                   <input type="text" placeholder="Promo Code" style="flex:1;padding:10px;border:1px solid var(--border-light);border-radius:var(--radius-sm);">
-                   <button class="btn btn-outline" onclick="showToast('Promo applied successfully!')">Apply</button>
-                 </div>
-                 
-                 <button class="btn btn-primary btn-block btn-lg" onclick="navigateTo('checkout')">
-                   Proceed to Checkout <i class="fas fa-arrow-right"></i>
-                 </button>
-                 
-                 <div class="secure-badges" style="margin-top:20px;text-align:center;color:var(--text-light);font-size:1.5rem;display:flex;gap:16px;justify-content:center;">
-                   <i class="fab fa-cc-visa" title="Visa"></i>
-                   <i class="fab fa-cc-mastercard" title="Mastercard"></i>
-                   <i class="fas fa-university" title="NetBanking"></i>
-                   <i class="fas fa-wallet" title="UPI"></i>
-                   <i class="fas fa-money-bill-wave" title="COD"></i>
-                 </div>
-                 <div style="text-align:center;font-size:0.85rem;color:var(--text-mid);margin-top:8px;">100% Secure Payments</div>
+        <h1 style="font-size:1.8rem;font-weight:700;margin-bottom:28px;"><i class="fas fa-shopping-cart"
+            style="color:var(--primary)"></i> Your Cart (<span id="cartItemCount">0</span> items)</h1>
+
+        <div class="cart-page-layout"
+          style="display: grid; grid-template-columns: 60% calc(40% - 32px); gap: 32px; align-items: start;">
+          <div class="cart-items-column" id="cartItems">
+            <!-- Cart Items Injected Here by JS -->
+          </div>
+
+          <div class="cart-summary-column" id="cartFooter">
+            <div class="order-summary" style="position: sticky; top: 100px;">
+              <h3 style="font-size:1.1rem;margin-bottom:16px;">Order Summary</h3>
+              <div class="summary-item"><span>Subtotal</span><span id="cartSubtotalVal">₹0</span></div>
+              <div class="summary-item"><span>GST (18%)</span><span id="cartGstVal">₹0</span></div>
+              <div class="summary-item"><span>Delivery</span><span id="cartShippingVal">₹0</span></div>
+              <div class="summary-item total" style="margin: 16px 0;"><span>Total Amount</span><span id="cartTotal"
+                  style="font-size:1.4rem;">₹0</span></div>
+
+              <div class="promo-box" style="display:flex;gap:8px;margin-bottom:20px;">
+                <input type="text" placeholder="Promo Code"
+                  style="flex:1;padding:10px;border:1px solid var(--border-light);border-radius:var(--radius-sm);">
+                <button class="btn btn-outline" onclick="showToast('Promo applied successfully!')">Apply</button>
               </div>
-           </div>
+
+              <button class="btn btn-primary btn-block btn-lg" onclick="navigateTo('checkout')">
+                Proceed to Checkout <i class="fas fa-arrow-right"></i>
+              </button>
+
+              <div class="secure-badges"
+                style="margin-top:20px;text-align:center;color:var(--text-light);font-size:1.5rem;display:flex;gap:16px;justify-content:center;">
+                <i class="fab fa-cc-visa" title="Visa"></i>
+                <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                <i class="fas fa-university" title="NetBanking"></i>
+                <i class="fas fa-wallet" title="UPI"></i>
+                <i class="fas fa-money-bill-wave" title="COD"></i>
+              </div>
+              <div style="text-align:center;font-size:0.85rem;color:var(--text-mid);margin-top:8px;">100% Secure
+                Payments</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -111,7 +116,9 @@
   <div class="modal-overlay" id="registerModal">
     <div class="modal" style="position:relative">
       <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
-      <img src="images/vguard-logo-transparent.png" alt="V-Guard" style="height:50px; width:auto; display:block; margin:0 auto 16px;" onerror="this.outerHTML='<div style=\'color:#E31E24;font-weight:800;font-size:1.8rem;text-align:center;margin-bottom:16px;\'>V-Guard</div>'">
+      <img src="images/vguard-logo-transparent.png" alt="V-Guard"
+        style="height:50px; width:auto; display:block; margin:0 auto 16px;"
+        onerror="this.outerHTML='<div style=\'color:#E31E24;font-weight:800;font-size:1.8rem;text-align:center;margin-bottom:16px;\'>V-Guard</div>'">
       <h2>Welcome to V-Guard Store!</h2>
       <p class="modal-subtitle">Create an account for exclusive deals & faster checkout</p>
       <form id="registerForm" onsubmit="handleRegister(event)">
@@ -516,10 +523,14 @@
           <p class="order-id">Order ID: <strong id="orderId">#VG-000000</strong></p>
           <div class="order-details" id="orderDetails"></div>
           <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
-            <button class="btn btn-primary btn-lg" onclick="navigateTo('home')"><i class="fas fa-home"></i> Continue Shopping</button>
-            <button class="btn btn-outline-dark btn-lg" onclick="showToast('Order tracking will be available on your registered email soon!')"><i class="fas fa-truck"></i> Track Order</button>
+            <button class="btn btn-primary btn-lg" onclick="navigateTo('home')"><i class="fas fa-home"></i> Continue
+              Shopping</button>
+            <button class="btn btn-outline-dark btn-lg"
+              onclick="showToast('Order tracking will be available on your registered email soon!')"><i
+                class="fas fa-truck"></i> Track Order</button>
           </div>
-          <div id="redirectTimer" style="margin-top:24px; font-size:0.9rem; color:var(--text-mid); font-weight:500;"></div>
+          <div id="redirectTimer" style="margin-top:24px; font-size:0.9rem; color:var(--text-mid); font-weight:500;">
+          </div>
         </div>
       </div>
     </div>
@@ -574,7 +585,9 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <img src="images/vguard-logo-transparent.png" alt="V-Guard" style="height:40px; width:auto; object-fit:contain; margin-bottom:14px;" onerror="this.outerHTML='<span style=\'color:#E31E24;font-weight:800;font-size:1.8rem;display:block;margin-bottom:14px;\'>V-Guard</span>'">
+          <img src="images/vguard-logo-transparent.png" alt="V-Guard"
+            style="height:40px; width:auto; object-fit:contain; margin-bottom:14px;"
+            onerror="this.outerHTML='<span style=\'color:#E31E24;font-weight:800;font-size:1.8rem;display:block;margin-bottom:14px;\'>V-Guard</span>'">
           <p>India's most trusted name in home appliances. Protecting homes since 1977 with innovative, reliable, and
             energy-efficient products.</p>
           <div class="footer-social">
@@ -629,4 +642,5 @@
 
   <script src="js/app.js"></script>
 </body>
+
 </html>
