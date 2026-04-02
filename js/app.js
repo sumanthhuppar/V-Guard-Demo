@@ -640,7 +640,10 @@ function updateCartUI() {
   if (cartGstVal) cartGstVal.textContent = '₹' + tax.toLocaleString();
 
   const cartShippingVal = document.getElementById('cartShippingVal');
-  if (cartShippingVal) cartShippingVal.textContent = shipping === 0 ? '<span style="color:var(--success)">FREE</span>' : '₹' + shipping;
+  if (cartShippingVal) {
+    // FIX: Remove HTML tags, just show text
+    cartShippingVal.textContent = shipping === 0 ? 'FREE' : '₹' + shipping;
+  }
 
   const cartFooterEl = document.getElementById('cartFooter');
   if (cartFooterEl) {
@@ -653,7 +656,6 @@ function updateCartUI() {
 
   renderCartItems();
 }
-
 function renderCartItems() {
   const container = document.getElementById('cartItems');
   if (!container) return;
@@ -672,10 +674,18 @@ function renderCartItems() {
     const p = products.find(x => x.id === item.id);
     if (!p) return '';
 
+    // Ensure image path is correct
+    let imagePath = p.image;
+
+    // Add cache-busting only for debugging (remove in production)
+    // const cacheBuster = '?t=' + Date.now();
+
     return `
       <div style="display:flex; gap:20px; padding:20px; background:white; border-radius:12px; border:1px solid var(--border-light); margin-bottom:16px; align-items:center; position:relative;">
         <div style="width:100px; height:100px; flex-shrink:0; background:var(--bg-light); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-           <img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:contain; padding:10px;">
+           <img src="${imagePath}" alt="${p.name}" 
+                style="width:100%; height:100%; object-fit:contain; padding:10px;" 
+                onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23999\' stroke-width=\'1\'%3E%3Crect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/%3E%3Ccircle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/%3E%3Cpolyline points=\'21 15 16 10 5 21\'/%3E%3C/svg%3E'; this.style.objectFit='contain'; this.style.padding='15px';">
         </div>
         <div style="flex:1;">
           <h4 style="font-size:1.1rem; font-weight:600; margin-bottom:4px;">${p.name}</h4>
@@ -1068,13 +1078,25 @@ function handleLogin(event) {
 
 function handleRegisterPage(event) {
   event.preventDefault();
-  const name = document.getElementById('regNamePage').value.trim();
+  const firstName = document.getElementById('regFirstName').value.trim();
+  const lastName = document.getElementById('regLastName').value.trim();
   const email = document.getElementById('regEmailPage').value.trim();
   const phone = document.getElementById('regPhonePage').value.trim();
   const password = document.getElementById('regPasswordPage').value;
+  const confirmPassword = document.getElementById('regConfirmPassword').value;
 
-  if (!name || !email || !phone || !password) {
+  if (!firstName || !lastName || !email || !phone || !password) {
     showToast('Please fill all fields', 'error');
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    showToast('Passwords do not match!', 'error');
+    return;
+  }
+
+  if (password.length < 6) {
+    showToast('Password must be at least 6 characters', 'error');
     return;
   }
 
@@ -1084,13 +1106,15 @@ function handleRegisterPage(event) {
     return;
   }
 
+  const fullName = firstName + ' ' + lastName;
+
   // Store in memory only
-  registeredUsers.push({ name, email, phone, password });
+  registeredUsers.push({ name: fullName, firstName, lastName, email, phone, password });
 
   // Auto login
-  user = { name, email, phone };
+  user = { name: fullName, firstName, lastName, email, phone };
   updateAuthUI();
-  showToast(`Account created successfully! Welcome, ${name}! 🎉`, 'success');
+  showToast(`Account created successfully! Welcome, ${firstName}! 🎉`, 'success');
   navigateTo('home');
 }
 
