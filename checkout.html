@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Checkout | V-Guard Store</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>">
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/vguard-logo-transparent.png" alt="V-Guard" style="height:48px; width:auto; object-fit:contain;"
+          onerror="this.outerHTML='<span style=\'color:#E31E24;font-weight:800;font-size:1.8rem;\'>V-Guard</span>'">
+      </a>
+
+      <div class="nav-menu" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="#">Dealer Locator</a>
+        <a href="#">Support</a>
+      </div>
+
+      <div class="nav-search">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Search water heaters, fans, stabilizers..."
+          oninput="handleSearch(this.value)">
+      </div>
+
+      <div class="nav-actions">
+        <!-- (Same Nav Actions) -->
+        <button class="nav-action-btn" id="wishlistBtn" title="Wishlist"
+          onclick="showToast('Wishlist feature coming soon!')">
+          <i class="far fa-heart"></i>
+          <span class="badge" id="wishlistCount" style="display:none">0</span>
+        </button>
+        <button class="nav-action-btn" id="cartBtn" title="Cart" onclick="window.location.href='cart.html'">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge" id="cartCount">0</span>
+        </button>
+        <div class="nav-user" id="navUser" style="display:none" onclick="showUserMenu()">
+          <i class="fas fa-user-circle"></i>
+          <span id="userName">Hi Guest</span>
+        </div>
+        <button class="nav-action-btn" id="loginBtn" title="Sign In" onclick="window.location.href='login.html'"
+          style="display:flex;">
+          <i class="fas fa-sign-in-alt"></i>
+        </button>
+      </div>
+
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== TOAST CONTAINER ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ===== CHECKOUT CONTENT ===== -->
+  <div id="checkout-page" class="page-view active-page">
+    <div class="page-content">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="sep">/</span>
+          <a href="cart.html">Cart</a>
+          <span class="sep">/</span>
+          <span>Checkout</span>
+        </div>
+        <h1 style="font-size:1.8rem;font-weight:700;margin-bottom:28px;"><i class="fas fa-lock"
+            style="color:var(--success);font-size:1.2rem;"></i> Secure Checkout</h1>
+        <div class="checkout-page">
+          <div class="checkout-form">
+            <div class="form-section">
+              <h3><i class="fas fa-map-marker-alt" style="color:var(--primary)"></i> Shipping Address</h3>
+              <div class="form-row">
+                <div class="form-group"><label>First Name</label><input type="text" id="shipFirst"
+                    placeholder="First name" required></div>
+                <div class="form-group"><label>Last Name</label><input type="text" id="shipLast" placeholder="Last name"
+                    required></div>
+              </div>
+              <div class="form-group"><label>Address Line 1</label><input type="text" id="shipAddr1"
+                  placeholder="House/Flat No., Street" required></div>
+              <div class="form-group"><label>Address Line 2</label><input type="text" id="shipAddr2"
+                  placeholder="Landmark, Area"></div>
+              <div class="form-row">
+                <div class="form-group"><label>City</label><input type="text" id="shipCity" placeholder="City" required>
+                </div>
+                <div class="form-group"><label>State</label>
+                  <select id="shipState" required>
+                    <option value="">Select State</option>
+                    <option>Andhra Pradesh</option>
+                    <option>Delhi</option>
+                    <option>Gujarat</option>
+                    <option>Karnataka</option>
+                    <option>Kerala</option>
+                    <option>Maharashtra</option>
+                    <option>Tamil Nadu</option>
+                    <option>Telangana</option>
+                    <option>Uttar Pradesh</option>
+                    <option>West Bengal</option>
+                    <option>Rajasthan</option>
+                    <option>Others</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>PIN Code</label><input type="text" id="shipPin" placeholder="6-digit PIN"
+                    maxlength="6" required></div>
+                <div class="form-group"><label>Phone</label><input type="tel" id="shipPhone"
+                    placeholder="+91 XXXXX XXXXX" required></div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" onclick="goToPayment()" style="margin-top:20px;">Continue to Payment <i class="fas fa-arrow-right"></i></button>
+          </div>
+          <div>
+            <div class="order-summary" id="checkoutSummary"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="mainFooter">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="images/vguard-logo-transparent.png" alt="V-Guard"
+            style="height:40px; width:auto; object-fit:contain; margin-bottom:14px;"
+            onerror="this.outerHTML='<span style=\'color:#E31E24;font-weight:800;font-size:1.8rem;display:block;margin-bottom:14px;\'>V-Guard</span>'">
+          <p>India's most trusted name in home appliances. Protecting homes since 1977 with innovative, reliable, and
+            energy-efficient products.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="#">Dealer Locator</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Categories</h3>
+          <ul>
+            <li><a href="products.html">Water Heaters</a></li>
+            <li><a href="products.html">Ceiling Fans</a></li>
+            <li><a href="products.html">Stabilizers</a></li>
+            <li><a href="products.html">Water Purifiers</a></li>
+            <li><a href="products.html">Kitchen Appliances</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Warranty Registration</a></li>
+            <li><a href="#">Service Request</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+          </ul>
+          <p style="margin-top:16px;"><i class="fas fa-phone-alt" style="color:var(--primary)"></i> 1800-103-1300 (Toll
+            Free)</p>
+          <p><i class="fas fa-envelope" style="color:var(--primary)"></i> support@vguard.in</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 V-Guard Industries Ltd. All rights reserved. | Made with ❤️ in India</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+
+</html>

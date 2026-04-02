@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | V-Guard Store</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>">
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/vguard-logo-transparent.png" alt="V-Guard" style="height:48px; width:auto; object-fit:contain;"
+          onerror="this.outerHTML='<span style=\'color:#E31E24;font-weight:800;font-size:1.8rem;\'>V-Guard</span>'">
+      </a>
+
+      <div class="nav-menu" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html" class="active">About</a>
+        <a href="#">Dealer Locator</a>
+        <a href="#">Support</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="nav-action-btn" id="cartBtn" onclick="window.location.href='cart.html'">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge" id="cartCount">0</span>
+        </button>
+        <button class="nav-action-btn" id="loginBtn" onclick="window.location.href='login.html'">
+          <i class="fas fa-sign-in-alt"></i>
+        </button>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== ABOUT CONTENT ===== -->
+  <div id="about-page" class="page-view active-page">
+    <div class="page-content">
+      <div class="container">
+        <section class="section" style="max-width:800px;margin:0 auto; padding: 40px 0;">
+          <div class="section-header">
+            <h2>About V-Guard</h2>
+            <div class="section-line"></div>
+          </div>
+          <div style="font-size:0.95rem;color:var(--text-mid);line-height:1.9;">
+            <p style="margin-bottom:16px;">V-Guard Industries Limited, established in 1977, is one of India's most
+              trusted brands for home appliances and electrical products. With over 45 years of excellence, V-Guard has
+              been protecting and empowering Indian homes.</p>
+            <p style="margin-bottom:16px;">From voltage stabilizers to water heaters, ceiling fans to water purifiers,
+              V-Guard offers a comprehensive range of products that combine innovation with reliability. Our commitment
+              to quality has made us a household name across India.</p>
+            <p>Headquartered in Kochi, Kerala, V-Guard operates with a nationwide network of dealers and service
+              centers, ensuring that help is always nearby.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+
+</html>

@@ -148,12 +148,23 @@ const categories = [
 ];
 
 // ===== STATE =====
-let cart = [];
-let user = null;
-let currentPage = 'home';
+let cart = JSON.parse(sessionStorage.getItem('vguard_cart') || '[]');
+let user = JSON.parse(sessionStorage.getItem('vguard_user') || 'null');
 let currentSlide = 0;
 let heroInterval;
-let registeredUsers = []; // This will reset on page refresh
+let registeredUsers = []; 
+
+// ===== HELPERS =====
+function getPageName() {
+  const path = window.location.pathname;
+  const page = path.split("/").pop().split(".")[0];
+  return page || 'index';
+}
+
+function getQueryParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
 
 // ===== INIT & ROUTING =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -164,114 +175,33 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartUI();
   checkUser();
   initScrollEffects();
-  setTimeout(() => { if (!user) document.getElementById('registerModal').classList.add('open'); }, 5000);
-
-  handleInitialRoute();
-});
-
-window.addEventListener('popstate', (e) => {
-  if (e.state) {
-    navigateTo(e.state.page, e.state.data, false);
-  } else {
-    handleInitialRoute();
+  
+  // Page-specific initialization
+  const page = getPageName();
+  if (page === 'products') {
+    renderAllProducts();
+    const catSearch = getQueryParam('category');
+    if (catSearch) setTimeout(() => filterByCategory(catSearch), 100);
   }
-});
-
-function handleInitialRoute() {
-  const path = window.location.pathname;
-  if (path.startsWith('/products/')) {
-    const productId = path.split('/')[2];
-    if (productId && products.some(p => p.id === productId)) {
-      navigateTo('detail', productId, false);
-    } else {
-      navigateTo('home', null, false);
-    }
-  } else if (path === '/products') {
-    navigateTo('products', null, false);
-  } else if (path === '/cart') {
-    navigateTo('cart', null, false);
-  } else if (path === '/checkout') {
-    navigateTo('checkout', null, false);
-  } else if (path === '/payment') {
-    navigateTo('payment', null, false);
-  } else if (path === '/order-confirmation' || path === '/confirmation') {
-    navigateTo('confirmation', null, false);
-  } else if (path === '/about') {
-    navigateTo('about', null, false);
-  } else if (path === '/support') {
-    navigateTo('support', null, false);
-  } else if (path === '/dealer-locator') {
-    navigateTo('dealer-locator', null, false);
-  } else {
-    navigateTo('home', null, false);
+  if (page === 'product-detail') {
+    const id = getQueryParam('id');
+    if (id) renderProductDetail(id);
   }
-}
-
-// ===== NAVIGATION =====
-const PAGE_TITLES = {
-  'home': 'V-Guard Store | Premium Home Appliances',
-  'products': 'All Products | V-Guard Store',
-  'checkout': 'Secure Checkout | V-Guard Store',
-  'cart': 'Your Cart | V-Guard Store',
-  'payment': 'Payment | V-Guard Store',
-  'confirmation': 'Order Confirmed | V-Guard Store',
-  'about': 'About Us | V-Guard Store',
-  'support': 'Support | V-Guard Store',
-  'dealer-locator': 'Dealer Locator | V-Guard Store'
-};
-
-function navigateTo(page, data, pushState = true) {
-  document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active-page'));
-  const target = document.getElementById(page + '-page');
-
-  if (target) {
-    target.classList.add('active-page');
-  } else if (page !== 'detail') {
-    // create skeleton container dynamically if it doesn't exist
-    const skeleton = document.createElement('div');
-    skeleton.id = page + '-page';
-    skeleton.className = 'page-view active-page';
-    skeleton.innerHTML = `<div class="page-content"><div class="container"><section class="section" style="min-height:50vh;text-align:center;padding:100px 0;"><h2>${PAGE_TITLES[page] || page}</h2><p>This page is currently under maintenance.</p></section></div></div>`;
-    document.getElementById('home-page').parentElement.appendChild(skeleton);
-  }
-
-  // For product detail, it uses its own '#detail-page' which exists but needs activation
-  if (page === 'detail') {
-    document.getElementById('detail-page').classList.add('active-page');
-  }
-
-  document.querySelectorAll('.nav-menu a').forEach(a => {
-    a.classList.toggle('active', a.dataset.page === page);
-  });
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  currentPage = page;
-
-  if (page === 'products') renderAllProducts();
-  if (page === 'detail' && data) renderProductDetail(data);
+  if (page === 'cart') renderCartItems();
   if (page === 'checkout') renderCheckoutSummary();
   if (page === 'payment') renderPaymentSummary();
+  
+  setTimeout(() => { if (!user && document.getElementById('registerModal')) document.getElementById('registerModal').classList.add('open'); }, 5000);
+});
 
-  // close mobile menu
-  document.getElementById('navMenu').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('active');
-
-  // History API routing
-  if (pushState) {
-    let url = `/${page}`;
-    if (page === 'home') url = '/';
-    if (page === 'detail' && data) url = `/products/${data}`;
-    if (page === 'confirmation') url = '/order-confirmation';
-    window.history.pushState({ page, data }, '', url);
-  }
-
-  // Title Update
-  if (page === 'detail' && data) {
-    const p = products.find(x => x.id === data);
-    document.title = p ? `${p.name} | V-Guard Store` : 'Product Not Found | V-Guard Store';
-  } else {
-    document.title = PAGE_TITLES[page] || 'V-Guard Store';
-  }
+// Remove old SPA routing helpers
+function navigateTo(page, data) {
+  // Graceful fallback for any remaining navigateTo calls
+  if (page === 'home') window.location.href = 'index.html';
+  else if (page === 'detail' && data) window.location.href = `product-detail.html?id=${data}`;
+  else window.location.href = `${page}.html`;
 }
+
 
 // ===== HERO VIDEO SLIDER =====
 const SLIDE_COUNT = 2;
@@ -404,8 +334,9 @@ function toggleMute() {
 // ===== RENDER CATEGORIES =====
 function renderCategories() {
   const grid = document.getElementById('categoriesGrid');
+  if (!grid) return;
   grid.innerHTML = categories.map(cat => `
-    <div class="category-card" onclick="navigateTo('products'); setTimeout(()=>filterByCategory('${cat.name}'),100);">
+    <div class="category-card" onclick="window.location.href='products.html?category=${encodeURIComponent(cat.name)}'">
       <div class="cat-icon"><i class="fas ${cat.icon}"></i></div>
       <h3>${cat.name}</h3>
       <p>${cat.count} Products</p>
@@ -417,7 +348,7 @@ function renderCategories() {
 function createProductCard(p) {
   const discount = Math.round((1 - p.price / p.originalPrice) * 100);
   return `
-    <div class="product-card" onclick="navigateTo('detail', '${p.id}')">
+    <div class="product-card" onclick="window.location.href='product-detail.html?id=${p.id}'">
       ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
       <button class="product-wishlist" onclick="event.stopPropagation(); toggleWishlist('${p.id}')" title="Add to Wishlist">
         <i class="far fa-heart"></i>
@@ -451,20 +382,22 @@ function getStars(rating) {
 
 function renderFeatured() {
   const grid = document.getElementById('featuredGrid');
+  if (!grid) return;
   const featured = products.filter(p => p.badge).slice(0, 4);
   grid.innerHTML = featured.map(createProductCard).join('');
 }
 
 function renderPopular() {
   const grid = document.getElementById('popularGrid');
+  if (!grid) return;
   const popular = [...products].sort((a, b) => b.reviews - a.reviews).slice(0, 4);
   grid.innerHTML = popular.map(createProductCard).join('');
 }
 
 // ===== PRODUCTS PAGE =====
 function renderAllProducts() {
-  // render category filters
   const filterDiv = document.getElementById('categoryFilters');
+  if (!filterDiv) return;
   filterDiv.innerHTML = categories.map(c => `
     <label><input type="checkbox" value="${c.name}" onchange="applyFilters()"> ${c.name} (${c.count})</label>
   `).join('');
@@ -472,9 +405,17 @@ function renderAllProducts() {
 }
 
 function applyFilters() {
+  const filterGrid = document.getElementById('allProductsGrid');
+  if (!filterGrid) return;
+
   const checkedCats = [...document.querySelectorAll('#categoryFilters input:checked')].map(i => i.value);
-  const maxPrice = parseInt(document.getElementById('priceRange').value);
-  const sortVal = document.getElementById('sortSelect').value;
+  const priceRangeEl = document.getElementById('priceRange');
+  const sortSelectEl = document.getElementById('sortSelect');
+  if (!priceRangeEl || !sortSelectEl) return;
+
+  const maxPrice = parseInt(priceRangeEl.value);
+  const sortVal = sortSelectEl.value;
+
   const ratingChecks = [...document.querySelectorAll('.filter-group input[type="checkbox"][value]')]
     .filter(i => i.parentElement.parentElement.querySelector('h4')?.textContent === 'Rating' && i.checked)
     .map(i => parseInt(i.value));
@@ -609,7 +550,7 @@ function updateCartQty(productId, delta) {
 }
 
 function saveCart() {
-  // Intentional empty function to disable localStorage persistence
+  sessionStorage.setItem('vguard_cart', JSON.stringify(cart));
 }
 
 function getCartTotal() {

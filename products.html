@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products | V-Guard Store</title>
+  <meta name="description"
+    content="Browse V-Guard's wide range of home appliances. High-quality water heaters, fans, stabilizers, and more.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>">
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/vguard-logo-transparent.png" alt="V-Guard" style="height:48px; width:auto; object-fit:contain;"
+          onerror="this.outerHTML='<span style=\'color:#E31E24;font-weight:800;font-size:1.8rem;\'>V-Guard</span>'">
+      </a>
+
+      <div class="nav-menu" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html" class="active">Products</a>
+        <a href="about.html">About</a>
+        <a href="#">Dealer Locator</a>
+        <a href="#">Support</a>
+      </div>
+
+      <div class="nav-search">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Search water heaters, fans, stabilizers..."
+          oninput="handleSearch(this.value)">
+      </div>
+
+      <div class="nav-actions">
+        <button class="nav-action-btn" id="wishlistBtn" title="Wishlist"
+          onclick="showToast('Wishlist feature coming soon!')">
+          <i class="far fa-heart"></i>
+          <span class="badge" id="wishlistCount" style="display:none">0</span>
+        </button>
+        <button class="nav-action-btn" id="cartBtn" title="Cart" onclick="window.location.href='cart.html'">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge" id="cartCount">0</span>
+        </button>
+        <div class="nav-user" id="navUser" style="display:none" onclick="showUserMenu()">
+          <i class="fas fa-user-circle"></i>
+          <span id="userName">Hi Guest</span>
+        </div>
+        <button class="nav-action-btn" id="loginBtn" title="Sign In" onclick="window.location.href='login.html'"
+          style="display:flex;">
+          <i class="fas fa-sign-in-alt"></i>
+        </button>
+      </div>
+
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== TOAST CONTAINER ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ===== PRODUCTS CONTENT ===== -->
+  <div id="products-page" class="page-view active-page">
+    <div class="page-content">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="sep">/</span>
+          <span>Products</span>
+        </div>
+        <div class="products-page">
+          <aside class="filter-sidebar" id="filterSidebar">
+            <h3><i class="fas fa-sliders-h"></i> Filters</h3>
+            <div class="filter-group">
+              <h4>Category</h4>
+              <div id="categoryFilters"></div>
+            </div>
+            <div class="filter-group">
+              <h4>Price Range</h4>
+              <input type="range" id="priceRange" min="0" max="50000" value="50000" oninput="applyFilters()">
+              <div
+                style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text-light);margin-top:6px;">
+                <span>₹0</span><span id="priceVal">₹50,000</span>
+              </div>
+            </div>
+            <div class="filter-group">
+              <h4>Rating</h4>
+              <label><input type="checkbox" value="4" onchange="applyFilters()"> ★★★★ & above</label>
+              <label><input type="checkbox" value="3" onchange="applyFilters()"> ★★★ & above</label>
+            </div>
+            <button class="btn btn-outline-dark btn-block btn-sm" onclick="resetFilters()" style="margin-top:12px">
+              <i class="fas fa-redo"></i> Reset Filters
+            </button>
+          </aside>
+          <div class="products-main">
+            <div class="products-topbar">
+              <span class="results-count" id="resultsCount">Showing 0 products</span>
+              <select id="sortSelect" onchange="applyFilters()">
+                <option value="featured">Sort: Featured</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+                <option value="name">Name: A-Z</option>
+              </select>
+            </div>
+            <div class="products-grid" id="allProductsGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="mainFooter">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="images/vguard-logo-transparent.png" alt="V-Guard"
+            style="height:40px; width:auto; object-fit:contain; margin-bottom:14px;"
+            onerror="this.outerHTML='<span style=\'color:#E31E24;font-weight:800;font-size:1.8rem;display:block;margin-bottom:14px;\'>V-Guard</span>'">
+          <p>India's most trusted name in home appliances. Protecting homes since 1977 with innovative, reliable, and
+            energy-efficient products.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="#">Dealer Locator</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Categories</h3>
+          <ul>
+            <li><a href="products.html">Water Heaters</a></li>
+            <li><a href="products.html">Ceiling Fans</a></li>
+            <li><a href="products.html">Stabilizers</a></li>
+            <li><a href="products.html">Water Purifiers</a></li>
+            <li><a href="products.html">Kitchen Appliances</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Warranty Registration</a></li>
+            <li><a href="#">Service Request</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+          </ul>
+          <p style="margin-top:16px;"><i class="fas fa-phone-alt" style="color:var(--primary)"></i> 1800-103-1300 (Toll
+            Free)</p>
+          <p><i class="fas fa-envelope" style="color:var(--primary)"></i> support@vguard.in</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 V-Guard Industries Ltd. All rights reserved. | Made with ❤️ in India</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+
+</html>
