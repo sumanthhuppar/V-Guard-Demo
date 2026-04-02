@@ -44,47 +44,47 @@ const products = [
     specs:[["Purification","RO+UF"],["Storage","8 Litres"],["Stages","7"],["Filter Life","6000 Litres"],["Warranty","1 Year"]]},
 
   // Kitchen Appliances
-  { id:"VG-KA-001", name:"Ignite 750W Mixer Grinder", category:"Kitchen Appliances", price:3499, originalPrice:4999, rating:4.5, reviews:3870, image:"images/mixer_grinder_product.png", badge:"Bestseller",
+  { id:"VG-KA-001", name:"Ignite 750W Mixer Grinder", category:"Kitchen Appliances", price:3499, originalPrice:4999, rating:4.5, reviews:3870, image:"images/mixer_grinder.png", badge:"Bestseller",
     description:"Powerful 750W mixer grinder with 3 stainless steel jars. Motor overload protection and ergonomic design for comfortable use.",
     specs:[["Power","750W"],["Jars","3 SS Jars"],["Speed","3 + Pulse"],["Blade","SS"],["Warranty","2 Years"]]},
-  { id:"VG-KA-002", name:"Induction Cooktop VIC-15", category:"Kitchen Appliances", price:2199, originalPrice:2999, rating:4.3, reviews:2450, image:"images/induction_cooktop_product.png", badge:"",
+  { id:"VG-KA-002", name:"Induction Cooktop VIC-15", category:"Kitchen Appliances", price:2199, originalPrice:2999, rating:4.3, reviews:2450, image:"images/induction_cooktop.png", badge:"",
     description:"1500W induction cooktop with crystal glass surface and push button controls. 7 preset cooking menus with auto-off timer.",
     specs:[["Power","1500W"],["Surface","Crystal Glass"],["Menus","7 Preset"],["Timer","Yes"],["Warranty","1 Year"]]},
-  { id:"VG-KA-003", name:"Spray Steam Iron IRS-02", category:"Kitchen Appliances", price:1299, originalPrice:1799, rating:4.2, reviews:4120, image:"images/water_heater.png", badge:"",
+  { id:"VG-KA-003", name:"Spray Steam Iron IRS-02", category:"Kitchen Appliances", price:1299, originalPrice:1799, rating:4.2, reviews:4120, image:"images/steam_iron.png", badge:"",
     description:"1200W steam iron with non-stick coated sole plate. Variable steam control and self-cleaning function for easy maintenance.",
     specs:[["Power","1200W"],["Sole Plate","Non-stick"],["Steam","Variable"],["Self-Clean","Yes"],["Warranty","1 Year"]]},
-  { id:"VG-KA-004", name:"Rice Cooker 1.8L", category:"Kitchen Appliances", price:1999, originalPrice:2899, rating:4.4, reviews:3400, image:"images/water_heater.png", badge:"Value",
+  { id:"VG-KA-004", name:"Rice Cooker 1.8L", category:"Kitchen Appliances", price:1999, originalPrice:2899, rating:4.4, reviews:3400, image:"images/rice_cooker.png", badge:"Value",
     description:"1.8L electric rice cooker with auto keep-warm function. Comes with measuring cup and rice spoon.",
     specs:[["Capacity","1.8L"],["Power","700W"],["Cook Pan","Anodized Aluminum"],["Lid","Dome Type"],["Warranty","1 Year"]]},
 
   // Inverters & Batteries
-  { id:"VG-INV-001", name:"Sinewave Inverter 850VA", category:"Inverters & Batteries", price:4499, originalPrice:5999, rating:4.5, reviews:2600, image:"images/stabilizer.png", badge:"Premium",
+  { id:"VG-INV-001", name:"Sinewave Inverter 850VA", category:"Inverters & Batteries", price:4499, originalPrice:5999, rating:4.5, reviews:2600, image:"images/inverter.png", badge:"Premium",
     description:"Pure sinewave inverter for sensitive electronics. Smart battery management system prevents deep discharge.",
     specs:[["Capacity","850VA"],["Waveform","Pure Sinewave"],["Display","LED Indicators"],["Support","1 Battery"],["Warranty","2 Years"]]},
-  { id:"VG-INV-002", name:"Inverter Battery 150Ah", category:"Inverters & Batteries", price:14999, originalPrice:18999, rating:4.6, reviews:1900, image:"images/water_heater.png", badge:"Top Rated",
+  { id:"VG-INV-002", name:"Inverter Battery 150Ah", category:"Inverters & Batteries", price:14999, originalPrice:18999, rating:4.6, reviews:1900, image:"images/inverter_battery.png", badge:"Top Rated",
     description:"Tubular inverter battery capable of long power backup. Deep cycle design with low maintenance requirements.",
     specs:[["Capacity","150Ah"],["Type","Tubular"],["Voltage","12V"],["Maintenance","Low"],["Warranty","3 Years"]]},
 
   // Pumps
-  { id:"VG-PMP-001", name:"Self-Priming Pump 1HP", category:"Pumps", price:5999, originalPrice:7999, rating:4.4, reviews:1670, image:"images/stabilizer.png", badge:"",
+  { id:"VG-PMP-001", name:"Self-Priming Pump 1HP", category:"Pumps", price:5999, originalPrice:7999, rating:4.4, reviews:1670, image:"images/pump.png", badge:"",
     description:"1HP self-priming monoblock pump suitable for domestic water supply. High suction lift and corrosion-resistant body.",
     specs:[["Power","1 HP"],["Head","35m"],["Suction","8m"],["Type","Self-Priming"],["Warranty","2 Years"]]},
-  { id:"VG-PMP-002", name:"Submersible Pump VAS-30", category:"Pumps", price:8499, originalPrice:10999, rating:4.5, reviews:890, image:"images/stabilizer.png", badge:"",
+  { id:"VG-PMP-002", name:"Submersible Pump VAS-30", category:"Pumps", price:8499, originalPrice:10999, rating:4.5, reviews:890, image:"images/pump.png", badge:"",
     description:"3-stage submersible pump for borewell applications. Stainless steel construction with energy-efficient motor.",
     specs:[["Power","1 HP"],["Stages","3"],["Material","SS"],["Head","45m"],["Warranty","2 Years"]]},
 
   // Air Coolers
-  { id:"VG-AC-001", name:"Desert Air Cooler 55L", category:"Air Coolers", price:9999, originalPrice:13499, rating:4.5, reviews:1120, image:"images/water_heater.png", badge:"Summer Special",
+  { id:"VG-AC-001", name:"Desert Air Cooler 55L", category:"Air Coolers", price:9999, originalPrice:13499, rating:4.5, reviews:1120, image:"images/air_cooler.png", badge:"Summer Special",
     description:"55-litre desert cooler with dense honeycomb cooling pads. Heavy-duty fan with 4-way air deflection.",
     specs:[["Capacity","55 Litres"],["Cooling Pad","Honeycomb"],["Air Throw","35 Ft"],["Power","190W"],["Warranty","1 Year"]]},
 
   // Solar
-  { id:"VG-SOL-001", name:"Solar Water Heater 200LPD", category:"Solar", price:24999, originalPrice:31999, rating:4.7, reviews:540, image:"images/water_heater.png", badge:"Eco Friendly",
+  { id:"VG-SOL-001", name:"Solar Water Heater 200LPD", category:"Solar", price:24999, originalPrice:31999, rating:4.7, reviews:540, image:"images/solar_heater.png", badge:"Eco Friendly",
     description:"200LPD non-pressurized solar water heater with high-efficiency evacuated tubes. Zero electricity consumption.",
     specs:[["Capacity","200 LPD"],["Type","Evacuated Tube"],["Tank Material","SS 304"],["Suitable For","4-5 Pax"],["Warranty","5 Years"]]},
 
   // Switches
-  { id:"VG-SW-001", name:"Modular Switch Kit", category:"Switches", price:899, originalPrice:1299, rating:4.3, reviews:640, image:"images/stabilizer.png", badge:"",
+  { id:"VG-SW-001", name:"Modular Switch Kit", category:"Switches", price:899, originalPrice:1299, rating:4.3, reviews:640, image:"images/modular_switch.png", badge:"",
     description:"Premium polycarbonate modular switch kit with FR-grade material. Smooth action and long-lasting durability.",
     specs:[["Material","Polycarbonate"],["Color","Milky White"],["Flame Retardant","Yes"],["Package","1 Switch + 1 Socket"],["Warranty","10 Years"]]}
 ];
@@ -143,8 +143,7 @@ function handleInitialRoute() {
   } else if (path === '/products') {
     navigateTo('products', null, false);
   } else if (path === '/cart') {
-    navigateTo('home', null, false);
-    toggleCart(); 
+    navigateTo('cart', null, false);
   } else if (path === '/checkout') {
     navigateTo('checkout', null, false);
   } else if (path === '/payment') {
@@ -385,7 +384,7 @@ function createProductCard(p) {
         <i class="far fa-heart"></i>
       </button>
       <div class="product-img">
-        <img src="${p.image}" alt="${p.name}" loading="lazy">
+        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.outerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg-light);color:var(--text-light);\\'><i class=\\'fas fa-box\\' style=\\'font-size:3rem;\\'></i></div>'">
       </div>
       <div class="product-info">
         <div class="product-category">${p.category}</div>
@@ -484,7 +483,7 @@ function renderProductDetail(productId) {
   document.getElementById('detailBreadcrumb').textContent = p.name;
   document.getElementById('productDetail').innerHTML = `
     <div class="product-gallery">
-      <img src="${p.image}" alt="${p.name}">
+      <img src="${p.image}" alt="${p.name}" onerror="this.outerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg-light);border-radius:var(--radius-lg);color:var(--text-light);\\'><i class=\\'fas fa-box\\' style=\\'font-size:4rem;\\'></i></div>'">
     </div>
     <div class="product-detail-info">
       <div class="detail-category">${p.category}</div>
@@ -580,45 +579,87 @@ function getCartTotal() {
 
 function updateCartUI() {
   const count = cart.reduce((s, i) => s + i.qty, 0);
-  document.getElementById('cartCount').textContent = count;
-  document.getElementById('cartItemCount').textContent = count;
-  document.getElementById('cartTotal').textContent = '₹' + getCartTotal().toLocaleString();
-  const hasItems = cart.length > 0;
-  document.getElementById('cartEmpty').style.display = hasItems ? 'none' : 'block';
-  document.getElementById('cartFooter').style.display = hasItems ? 'block' : 'none';
+  const cartCountEl = document.getElementById('cartCount');
+  if(cartCountEl) cartCountEl.textContent = count;
+  
+  const cartItemCountEl = document.getElementById('cartItemCount');
+  if(cartItemCountEl) cartItemCountEl.textContent = count;
+
+  const total = getCartTotal();
+  const tax = Math.round(total * 0.18);
+  const shipping = total > 999 || total === 0 ? 0 : 99;
+  const finalTotal = total + tax + shipping;
+
+  const cartTotalEl = document.getElementById('cartTotal');
+  if(cartTotalEl) cartTotalEl.textContent = '₹' + finalTotal.toLocaleString();
+  
+  const cartSubtotalVal = document.getElementById('cartSubtotalVal');
+  if(cartSubtotalVal) cartSubtotalVal.textContent = '₹' + total.toLocaleString();
+
+  const cartGstVal = document.getElementById('cartGstVal');
+  if(cartGstVal) cartGstVal.textContent = '₹' + tax.toLocaleString();
+
+  const cartShippingVal = document.getElementById('cartShippingVal');
+  if(cartShippingVal) cartShippingVal.textContent = shipping === 0 ? '<span style="color:var(--success)">FREE</span>' : '₹' + shipping;
+
+  const cartFooterEl = document.getElementById('cartFooter');
+  if(cartFooterEl) {
+     if(cart.length > 0) {
+        cartFooterEl.style.display = 'block';
+     } else {
+        cartFooterEl.style.display = 'none';
+     }
+  }
+
   renderCartItems();
 }
 
 function renderCartItems() {
   const container = document.getElementById('cartItems');
+  if (!container) return;
+  
   if (!cart.length) {
-    container.innerHTML = `<div class="cart-empty" id="cartEmpty"><i class="fas fa-shopping-bag"></i><p>Your cart is empty</p><br><button class="btn btn-primary btn-sm" onclick="navigateTo('products'); toggleCart();">Browse Products</button></div>`;
+    container.innerHTML = `<div style="text-align:center; padding: 60px 20px; background:white; border-radius:12px; border:1px solid var(--border-light); grid-column:1/-1;">
+      <i class="fas fa-shopping-basket" style="font-size:3rem; color:var(--border-light); margin-bottom:16px;"></i>
+      <h2 style="font-size:1.4rem; font-weight:600; margin-bottom:8px;">Your cart is empty</h2>
+      <p style="color:var(--text-mid); margin-bottom:24px;">Looks like you haven't added any products to your cart yet.</p>
+      <button class="btn btn-primary btn-lg" onclick="navigateTo('products');">Continue Shopping</button>
+    </div>`;
     return;
   }
   container.innerHTML = cart.map(item => {
     const p = products.find(x => x.id === item.id);
     if (!p) return '';
+    const fallbackImage = `this.outerHTML='<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:var(--text-light); background:var(--bg-light); border-radius:8px;"><i class="fas fa-box" style="font-size:1.5rem;"></i></div>'`;
     return `
-      <div class="cart-item">
-        <div class="cart-item-img"><img src="${p.image}" alt="${p.name}"></div>
-        <div class="cart-item-details">
-          <h4>${p.name}</h4>
-          <div class="cart-item-price">₹${(p.price * item.qty).toLocaleString()}</div>
-          <div class="cart-item-qty">
-            <button onclick="updateCartQty('${p.id}', -1)">−</button>
-            <span>${item.qty}</span>
-            <button onclick="updateCartQty('${p.id}', 1)">+</button>
+      <div style="display:flex; gap:20px; padding:20px; background:white; border-radius:12px; border:1px solid var(--border-light); margin-bottom:16px; align-items:center; position:relative;">
+        <div style="width:100px; height:100px; flex-shrink:0;">
+           <img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:contain; border-radius:8px; background:var(--bg-light);" onerror="${fallbackImage}">
+        </div>
+        <div style="flex:1;">
+          <h4 style="font-size:1.1rem; font-weight:600; margin-bottom:4px;">${p.name}</h4>
+          <span style="font-size:0.85rem; color:var(--text-mid); display:block; margin-bottom:8px;">ID: ${p.id}</span>
+          <div style="font-size:1.1rem; font-weight:700; color:var(--primary); margin-bottom:12px;">₹${p.price.toLocaleString()}</div>
+          
+          <div style="display:flex; gap:12px; align-items:center;">
+             <div class="qty-controls" style="display:flex; align-items:center; border:1px solid var(--border-light); border-radius:6px; overflow:hidden; width:max-content;">
+               <button onclick="updateCartQty('${p.id}', -1)" style="padding:6px 12px; background:var(--bg-light); border:none; cursor:pointer;">−</button>
+               <span style="padding:0 12px; font-weight:600; min-width:30px; text-align:center;">${item.qty}</span>
+               <button onclick="updateCartQty('${p.id}', 1)" style="padding:6px 12px; background:var(--bg-light); border:none; cursor:pointer;">+</button>
+             </div>
+             <button onclick="removeFromCart('${p.id}')" style="background:none; border:none; color:var(--text-light); cursor:pointer; font-size:0.9rem; text-decoration:underline;">Remove</button>
           </div>
         </div>
-        <button class="cart-item-remove" onclick="removeFromCart('${p.id}')" title="Remove"><i class="fas fa-trash-alt"></i></button>
+        <div style="font-size:1.2rem; font-weight:700; text-align:right;">
+           <div style="font-size:0.85rem; color:var(--text-mid); font-weight:500;">Subtotal</div>
+           ₹${(p.price * item.qty).toLocaleString()}
+        </div>
       </div>`;
   }).join('');
 }
 
 function toggleCart() {
-  document.getElementById('cartOverlay').classList.toggle('open');
-  document.getElementById('cartSidebar').classList.toggle('open');
-  document.body.classList.toggle('no-scroll');
+  navigateTo('cart');
 }
 
 // ===== CHECKOUT =====
@@ -870,6 +911,23 @@ function finalizeOrderSuccess(methodName, isCod) {
     }
     
     navigateTo('confirmation');
+    
+    // Start countdown
+    let timeLeft = 5;
+    const timerDisplay = document.getElementById('redirectTimer');
+    if(timerDisplay) {
+      timerDisplay.textContent = `Redirecting to home in ${timeLeft}...`;
+      const countdownInterval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft > 0) {
+          timerDisplay.textContent = `Redirecting to home in ${timeLeft}...`;
+        } else {
+          clearInterval(countdownInterval);
+          navigateTo('home');
+          showToast(`Thank you for your order! Your order ${orderId} has been placed successfully 🎉`, 'success', 4000);
+        }
+      }, 1000);
+    }
   }, 3500);
 }
 
@@ -938,11 +996,11 @@ function initScrollEffects() {
 }
 
 // ===== TOAST =====
-function showToast(message, type = 'success') {
+function showToast(message, type = 'success', duration = 3000) {
   const container = document.getElementById('toastContainer');
   const toast = document.createElement('div');
   toast.className = 'toast ' + type;
   toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}" style="color:${type === 'success' ? 'var(--success)' : 'var(--primary)'}"></i> ${message}`;
   container.appendChild(toast);
-  setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(100%)'; toast.style.transition = 'all 0.4s ease'; setTimeout(() => toast.remove(), 400); }, 3000);
+  setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(100%)'; toast.style.transition = 'all 0.4s ease'; setTimeout(() => toast.remove(), 400); }, duration);
 }
