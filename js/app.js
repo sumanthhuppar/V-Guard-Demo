@@ -152,6 +152,7 @@ let user = null;
 let currentPage = 'home';
 let currentSlide = 0;
 let heroInterval;
+let registeredUsers = []; // This will reset on page refresh
 
 // ===== INIT & ROUTING =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -421,7 +422,7 @@ function createProductCard(p) {
         <i class="far fa-heart"></i>
       </button>
       <div class="product-img">
-        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.outerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg-light);color:var(--text-light);\\'><i class=\\'fas fa-box\\' style=\\'font-size:3rem;\\'></i></div>'">
+        <img src="${p.image}" alt="${p.name}" loading="lazy">
       </div>
       <div class="product-info">
         <div class="product-category">${p.category}</div>
@@ -520,7 +521,7 @@ function renderProductDetail(productId) {
   document.getElementById('detailBreadcrumb').textContent = p.name;
   document.getElementById('productDetail').innerHTML = `
     <div class="product-gallery">
-      <img src="${p.image}" alt="${p.name}" onerror="this.outerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg-light);border-radius:var(--radius-lg);color:var(--text-light);\\'><i class=\\'fas fa-box\\' style=\\'font-size:4rem;\\'></i></div>'">
+      <img src="${p.image}" alt="${p.name}">
     </div>
     <div class="product-detail-info">
       <div class="detail-category">${p.category}</div>
@@ -670,11 +671,11 @@ function renderCartItems() {
   container.innerHTML = cart.map(item => {
     const p = products.find(x => x.id === item.id);
     if (!p) return '';
+
     return `
       <div style="display:flex; gap:20px; padding:20px; background:white; border-radius:12px; border:1px solid var(--border-light); margin-bottom:16px; align-items:center; position:relative;">
-        <div style="width:100px; height:100px; flex-shrink:0;">
-           <img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:contain; border-radius:8px; background:var(--bg-light);" 
-                onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23888\' stroke-width=\'1\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Crect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\' ry=\'2\'%3E%3C/rect%3E%3Ccircle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'%3E%3C/circle%3E%3Cpolyline points=\'21 15 16 10 5 21\'%3E%3C/polyline%3E%3C/svg%3E'; this.style.objectFit='contain';">
+        <div style="width:100px; height:100px; flex-shrink:0; background:var(--bg-light); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+           <img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:contain; padding:10px;">
         </div>
         <div style="flex:1;">
           <h4 style="font-size:1.1rem; font-weight:600; margin-bottom:4px;">${p.name}</h4>
@@ -683,9 +684,9 @@ function renderCartItems() {
           
           <div style="display:flex; gap:12px; align-items:center;">
              <div class="qty-controls" style="display:flex; align-items:center; border:1px solid var(--border-light); border-radius:6px; overflow:hidden; width:max-content;">
-               <button onclick="updateCartQty('${p.id}', -1)" style="padding:6px 12px; background:var(--bg-light); border:none; cursor:pointer;">−</button>
+               <button onclick="updateCartQty('${p.id}', -1)" style="padding:6px 12px; background:var(--bg-light); border:none; cursor:pointer; font-size:1rem;">−</button>
                <span style="padding:0 12px; font-weight:600; min-width:30px; text-align:center;">${item.qty}</span>
-               <button onclick="updateCartQty('${p.id}', 1)" style="padding:6px 12px; background:var(--bg-light); border:none; cursor:pointer;">+</button>
+               <button onclick="updateCartQty('${p.id}', 1)" style="padding:6px 12px; background:var(--bg-light); border:none; cursor:pointer; font-size:1rem;">+</button>
              </div>
              <button onclick="removeFromCart('${p.id}')" style="background:none; border:none; color:var(--text-light); cursor:pointer; font-size:0.9rem; text-decoration:underline;">Remove</button>
           </div>
@@ -1044,3 +1045,85 @@ function showToast(message, type = 'success', duration = 3000) {
   container.appendChild(toast);
   setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(100%)'; toast.style.transition = 'all 0.4s ease'; setTimeout(() => toast.remove(), 400); }, duration);
 }
+
+// Add these functions to your existing app.js
+
+function handleLogin(event) {
+  event.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+
+  // Check in memory only
+  const existingUser = registeredUsers.find(u => u.email === email && u.password === password);
+
+  if (existingUser) {
+    user = { name: existingUser.name, email: existingUser.email, phone: existingUser.phone };
+    updateAuthUI();
+    showToast(`Welcome back, ${user.name}! 🎉`, 'success');
+    navigateTo('home');
+  } else {
+    showToast('Invalid email or password!', 'error');
+  }
+}
+
+function handleRegisterPage(event) {
+  event.preventDefault();
+  const name = document.getElementById('regNamePage').value.trim();
+  const email = document.getElementById('regEmailPage').value.trim();
+  const phone = document.getElementById('regPhonePage').value.trim();
+  const password = document.getElementById('regPasswordPage').value;
+
+  if (!name || !email || !phone || !password) {
+    showToast('Please fill all fields', 'error');
+    return;
+  }
+
+  // Check if user already exists in memory
+  if (registeredUsers.find(u => u.email === email)) {
+    showToast('User already exists! Please login.', 'error');
+    return;
+  }
+
+  // Store in memory only
+  registeredUsers.push({ name, email, phone, password });
+
+  // Auto login
+  user = { name, email, phone };
+  updateAuthUI();
+  showToast(`Account created successfully! Welcome, ${name}! 🎉`, 'success');
+  navigateTo('home');
+}
+
+function updateAuthUI() {
+  const userEl = document.getElementById('navUser');
+  const loginBtn = document.getElementById('loginBtn');
+  const nameEl = document.getElementById('userName');
+
+  if (user) {
+    userEl.style.display = 'flex';
+    loginBtn.style.display = 'none';
+    nameEl.textContent = 'Hi ' + user.name.split(' ')[0];
+  } else {
+    userEl.style.display = 'none';
+    loginBtn.style.display = 'flex';
+  }
+}
+
+function showUserMenu() {
+  if (confirm('Do you want to logout?')) {
+    user = null;
+    updateAuthUI();
+    showToast('Logged out successfully!', 'success');
+    navigateTo('home');
+  }
+}
+
+// Remove any localStorage code from checkUser
+function checkUser() {
+  // Don't load from localStorage - start fresh
+  user = null;
+  updateAuthUI();
+}
+
+// Remove the old modal-related code and auto-show modal
+// In DOMContentLoaded, remove: setTimeout(() => { if (!user) document.getElementById('registerModal').classList.add('open'); }, 5000);
