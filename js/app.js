@@ -889,8 +889,12 @@ function finalizeOrderSuccess(methodName, isCod) {
 
 function renderOrderConfirmation() {
   const orderDataStr = sessionStorage.getItem('vguard_last_order');
+  
+  // Only redirect if we are actually on the confirmation page
   if (!orderDataStr) {
-    window.location.href = 'index.html'; // No order found, safety fallback
+    if (window.location.pathname.includes('confirmation.html')) {
+        window.location.href = 'index.html';
+    }
     return;
   }
 
@@ -949,7 +953,6 @@ function renderOrderConfirmation() {
     }, 1000);
   }
 }
-}
 
 // ===== SEARCH =====
 function handleSearch(query) {
@@ -974,31 +977,78 @@ function toggleWishlist(productId) {
   showToast('Added to wishlist! ❤️', 'success');
 }
 
-// ===== AUTH =====
-function handleRegister(e) {
-  e.preventDefault();
-  const name = document.getElementById('regName').value.trim();
-  const email = document.getElementById('regEmail').value.trim();
-  const phone = document.getElementById('regPhone').value.trim();
-  if (!name || !email) return;
-  user = { name, email, phone };
-  localStorage.setItem('vguard_user', JSON.stringify(user));
-  closeModal();
-  checkUser();
-  showToast(`Welcome, ${name}! 🎉`, 'success');
-}
-
-function checkUser() {
-  const userEl = document.getElementById('navUser');
-  const nameEl = document.getElementById('userName');
-  if (user) {
-    userEl.style.display = 'flex';
-    nameEl.textContent = 'Hi ' + user.name.split(' ')[0];
+// ===== AUTH & USER =====
+function handleLogin(event) {
+  event.preventDefault();
+  const email = document.getElementById('loginEmail')?.value.trim();
+  const password = document.getElementById('loginPassword')?.value;
+  if (!email || !password) return;
+  const existingUser = registeredUsers.find(u => u.email === email && u.password === password);
+  if (existingUser) {
+    user = { name: existingUser.name, email: existingUser.email, phone: existingUser.phone };
+    updateAuthUI();
+    showToast(`Welcome back, ${user.name}! 🎉`, 'success');
+    navigateTo('home');
+  } else {
+    showToast('Invalid email or password!', 'error');
   }
 }
 
-function closeModal() {
-  document.getElementById('registerModal').classList.remove('open');
+function handleRegisterPage(event) {
+  event.preventDefault();
+  const firstName = document.getElementById('regFirstName')?.value.trim();
+  const lastName = document.getElementById('regLastName')?.value.trim();
+  const email = document.getElementById('regEmailPage')?.value.trim();
+  const phone = document.getElementById('regPhonePage')?.value.trim();
+  const password = document.getElementById('regPasswordPage')?.value;
+  const confirmPassword = document.getElementById('regConfirmPassword')?.value;
+
+  if (!firstName || !lastName || !email || !phone || !password) {
+    showToast('Please fill all fields', 'error');
+    return;
+  }
+  if (password !== confirmPassword) {
+    showToast('Passwords do not match!', 'error');
+    return;
+  }
+  if (registeredUsers.find(u => u.email === email)) {
+    showToast('User already exists! Please login.', 'error');
+    return;
+  }
+  const fullName = firstName + ' ' + lastName;
+  registeredUsers.push({ name: fullName, firstName, lastName, email, phone, password });
+  user = { name: fullName, firstName, lastName, email, phone };
+  updateAuthUI();
+  showToast(`Account created successfully! Welcome, ${firstName}! 🎉`, 'success');
+  navigateTo('home');
+}
+
+function updateAuthUI() {
+  const userEl = document.getElementById('navUser');
+  const loginBtn = document.getElementById('loginBtn');
+  const nameEl = document.getElementById('userName');
+  if (user) {
+    if (userEl) userEl.style.display = 'flex';
+    if (loginBtn) loginBtn.style.display = 'none';
+    if (nameEl) nameEl.textContent = 'Hi ' + user.name.split(' ')[0];
+  } else {
+    if (userEl) userEl.style.display = 'none';
+    if (loginBtn) loginBtn.style.display = 'flex';
+  }
+}
+
+function showUserMenu() {
+  if (confirm('Do you want to logout?')) {
+    user = null;
+    updateAuthUI();
+    showToast('Logged out successfully!', 'success');
+    navigateTo('home');
+  }
+}
+
+function checkUser() {
+  user = null; // Start fresh for MPA demo
+  updateAuthUI();
 }
 
 // ===== MOBILE MENU =====
@@ -1020,105 +1070,16 @@ function initScrollEffects() {
 // ===== TOAST =====
 function showToast(message, type = 'success', duration = 3000) {
   const container = document.getElementById('toastContainer');
+  if (!container) return;
   const toast = document.createElement('div');
   toast.className = 'toast ' + type;
   toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}" style="color:${type === 'success' ? 'var(--success)' : 'var(--primary)'}"></i> ${message}`;
   container.appendChild(toast);
-  setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(100%)'; toast.style.transition = 'all 0.4s ease'; setTimeout(() => toast.remove(), 400); }, duration);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(100%)';
+    toast.style.transition = 'all 0.4s ease';
+    setTimeout(() => toast.remove(), 400);
+  }, duration);
 }
 
-// Add these functions to your existing app.js
-
-function handleLogin(event) {
-  event.preventDefault();
-  const email = document.getElementById('loginEmail').value.trim();
-  const password = document.getElementById('loginPassword').value;
-
-  // Check in memory only
-  const existingUser = registeredUsers.find(u => u.email === email && u.password === password);
-
-  if (existingUser) {
-    user = { name: existingUser.name, email: existingUser.email, phone: existingUser.phone };
-    updateAuthUI();
-    showToast(`Welcome back, ${user.name}! 🎉`, 'success');
-    navigateTo('home');
-  } else {
-    showToast('Invalid email or password!', 'error');
-  }
-}
-
-function handleRegisterPage(event) {
-  event.preventDefault();
-  const firstName = document.getElementById('regFirstName').value.trim();
-  const lastName = document.getElementById('regLastName').value.trim();
-  const email = document.getElementById('regEmailPage').value.trim();
-  const phone = document.getElementById('regPhonePage').value.trim();
-  const password = document.getElementById('regPasswordPage').value;
-  const confirmPassword = document.getElementById('regConfirmPassword').value;
-
-  if (!firstName || !lastName || !email || !phone || !password) {
-    showToast('Please fill all fields', 'error');
-    return;
-  }
-
-  if (password !== confirmPassword) {
-    showToast('Passwords do not match!', 'error');
-    return;
-  }
-
-  if (password.length < 6) {
-    showToast('Password must be at least 6 characters', 'error');
-    return;
-  }
-
-  // Check if user already exists in memory
-  if (registeredUsers.find(u => u.email === email)) {
-    showToast('User already exists! Please login.', 'error');
-    return;
-  }
-
-  const fullName = firstName + ' ' + lastName;
-
-  // Store in memory only
-  registeredUsers.push({ name: fullName, firstName, lastName, email, phone, password });
-
-  // Auto login
-  user = { name: fullName, firstName, lastName, email, phone };
-  updateAuthUI();
-  showToast(`Account created successfully! Welcome, ${firstName}! 🎉`, 'success');
-  navigateTo('home');
-}
-
-function updateAuthUI() {
-  const userEl = document.getElementById('navUser');
-  const loginBtn = document.getElementById('loginBtn');
-  const nameEl = document.getElementById('userName');
-
-  if (user) {
-    if (userEl) userEl.style.display = 'flex';
-    if (loginBtn) loginBtn.style.display = 'none';
-    if (nameEl) nameEl.textContent = 'Hi ' + user.name.split(' ')[0];
-  } else {
-    if (userEl) userEl.style.display = 'none';
-    if (loginBtn) loginBtn.style.display = 'flex';
-  }
-}
-
-function showUserMenu() {
-  if (confirm('Do you want to logout?')) {
-    user = null;
-    updateAuthUI();
-    showToast('Logged out successfully!', 'success');
-    navigateTo('home');
-  }
-}
-
-// Remove any localStorage code from checkUser
-function checkUser() {
-  // Don't load from localStorage - start fresh
-  user = null;
-  updateAuthUI();
-}
-
-// Remove the old modal-related code and auto-show modal
-// In DOMContentLoaded, remove: setTimeout(() => { if (!user) document.getElementById('registerModal').classList.add('open'); }, 5000);
