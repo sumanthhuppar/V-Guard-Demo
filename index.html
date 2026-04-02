@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V-Guard Store | Premium Home Appliances</title>
+  <meta name="description"
+    content="Shop V-Guard premium home appliances - Water Heaters, Fans, Stabilizers, Water Purifiers & more. Trusted by millions of Indian homes.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>">
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" class="nav-logo" onclick="navigateTo('home')">
+        <img src="images/vguard-logo-transparent.png" alt="V-Guard"
+          style="height:48px; width:auto; object-fit:contain;">
+
+      </a>
+
+      <div class="nav-menu" id="navMenu">
+        <a href="#" class="active" onclick="navigateTo('home')" data-page="home">Home</a>
+        <a href="#" onclick="navigateTo('products')" data-page="products">Products</a>
+        <a href="#" onclick="navigateTo('about')" data-page="about">About</a>
+        <a href="#" data-page="dealer">Dealer Locator</a>
+        <a href="#" data-page="support">Support</a>
+      </div>
+
+      <div class="nav-search">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Search water heaters, fans, stabilizers..."
+          oninput="handleSearch(this.value)">
+      </div>
+
+      <div class="nav-actions">
+        <button class="nav-action-btn" id="wishlistBtn" title="Wishlist"
+          onclick="showToast('Wishlist feature coming soon!')">
+          <i class="far fa-heart"></i>
+          <span class="badge" id="wishlistCount" style="display:none">0</span>
+        </button>
+        <button class="nav-action-btn" id="cartBtn" title="Cart" onclick="toggleCart()">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge" id="cartCount">0</span>
+        </button>
+        <div class="nav-user" id="navUser" style="display:none" onclick="showToast('Account settings coming soon!')">
+          <i class="fas fa-user-circle"></i>
+          <span id="userName">Hi Guest</span>
+        </div>
+      </div>
+
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== CART SIDEBAR ===== -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2><i class="fas fa-shopping-cart"></i> Your Cart (<span id="cartItemCount">0</span>)</h2>
+      <button class="cart-close" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <i class="fas fa-shopping-bag"></i>
+        <p>Your cart is empty</p>
+        <br>
+        <button class="btn btn-primary btn-sm" onclick="navigateTo('products'); toggleCart();">Browse Products</button>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        <span>Subtotal</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="toggleCart(); navigateTo('checkout');">
+        Proceed to Checkout <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== REGISTRATION MODAL ===== -->
+  <div class="modal-overlay" id="registerModal">
+    <div class="modal" style="position:relative">
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+      <div class="modal-logo">V-Guard</div>
+      <h2>Welcome to V-Guard Store!</h2>
+      <p class="modal-subtitle">Create an account for exclusive deals & faster checkout</p>
+      <form id="registerForm" onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label for="regName">Full Name</label>
+          <input type="text" id="regName" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+          <label for="regEmail">Email Address</label>
+          <input type="email" id="regEmail" placeholder="your@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="regPhone">Phone Number</label>
+          <input type="tel" id="regPhone" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+        <div class="form-group">
+          <label for="regPassword">Password</label>
+          <input type="password" id="regPassword" placeholder="Create a password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top:8px">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+      </form>
+      <p style="text-align:center; margin-top:16px; font-size:0.82rem; color:var(--text-light);">
+        By signing up, you agree to our <a href="#" style="color:var(--primary)">Terms</a> & <a href="#"
+          style="color:var(--primary)">Privacy Policy</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== TOAST CONTAINER ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ===== HOME PAGE ===== -->
+  <div id="home-page" class="page-view active-page">
+
+    <!-- HERO VIDEO SLIDER -->
+    <section class="hero-video" id="hero">
+      <div class="hero-video-slider" id="heroSlider">
+        <!-- Slide 1: Water Purifier -->
+        <div class="hero-vslide active" data-index="0">
+          <video class="hero-vslide-video" autoplay muted loop playsinline>
+            <source src="videos/water_purifier.mp4" type="video/mp4">
+          </video>
+          <div class="hero-vslide-overlay"></div>
+          <div class="hero-vslide-content">
+            <span class="hero-badge">FEATURED PRODUCT</span>
+            <h1>Pure Water Pure Life</h1>
+            <p>V-Guard RO+UV Water Purifier<br>7 Stage Purification Technology</p>
+            <div class="hero-vslide-btns">
+              <button class="btn btn-primary btn-lg" onclick="navigateTo('products')">Shop Now <i
+                  class="fas fa-arrow-right"></i></button>
+              <button class="btn btn-outline" onclick="navigateTo('products')">Explore Range</button>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2: Mixer Grinder -->
+        <div class="hero-vslide" data-index="1">
+          <video class="hero-vslide-video" autoplay muted loop playsinline>
+            <source src="videos/mixer_grinder.mp4" type="video/mp4">
+          </video>
+          <div class="hero-vslide-overlay"></div>
+          <div class="hero-vslide-content">
+            <span class="hero-badge">BESTSELLER</span>
+            <h1>Blend Like a Pro</h1>
+            <p>V-Guard Mixer Grinder 750W<br>3 Jars Powerful Copper Motor</p>
+            <div class="hero-vslide-btns">
+              <button class="btn btn-primary btn-lg" onclick="navigateTo('products')">Shop Now <i
+                  class="fas fa-arrow-right"></i></button>
+              <button class="btn btn-outline" onclick="navigateTo('products')">Explore Range</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Arrow Navigation -->
+      <button class="hero-arrow hero-arrow-left" id="heroPrev" onclick="heroSlideNav(-1)">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="hero-arrow hero-arrow-right" id="heroNext" onclick="heroSlideNav(1)">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <!-- Dot Indicators -->
+      <div class="hero-vdots" id="heroDots">
+        <button class="hero-vdot active" onclick="goToSlide(0)"></button>
+        <button class="hero-vdot" onclick="goToSlide(1)"></button>
+      </div>
+      <!-- Mute/Unmute Toggle -->
+      <button class="hero-mute-btn" id="heroMuteBtn" onclick="toggleMute()" title="Toggle Sound">
+        <i class="fas fa-volume-mute" id="muteIcon"></i>
+      </button>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="section" style="background: var(--bg-light);">
+      <div class="container">
+        <div class="section-header">
+          <h2>Shop by Category</h2>
+          <p>Explore our wide range of trusted home appliances</p>
+          <div class="section-line"></div>
+        </div>
+        <div class="categories-grid" id="categoriesGrid"></div>
+      </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Featured Products</h2>
+          <p>Handpicked best-sellers loved by thousands of Indian families</p>
+          <div class="section-line"></div>
+        </div>
+        <div class="products-grid" id="featuredGrid"></div>
+      </div>
+    </section>
+
+    <!-- PROMO BANNER -->
+    <section class="promo-banner">
+      <div class="container">
+        <div class="promo-content">
+          <div>
+            <h2>🎉 Summer Special Offer!</h2>
+            <p>Get up to 30% off on Water Heaters & Coolers. Limited time offer across all V-Guard stores.</p>
+            <button class="btn btn-primary btn-lg" onclick="navigateTo('products')">Grab the Deal <i
+                class="fas fa-arrow-right"></i></button>
+          </div>
+          <div style="text-align:center;">
+            <img src="images/water_heater.png" alt="V-Guard Water Heater"
+              style="max-height:220px; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MORE PRODUCTS -->
+    <section class="section" style="background: var(--bg-light);">
+      <div class="container">
+        <div class="section-header">
+          <h2>Popular Right Now</h2>
+          <p>Trending products across India this season</p>
+          <div class="section-line"></div>
+        </div>
+        <div class="products-grid" id="popularGrid"></div>
+      </div>
+    </section>
+
+    <!-- WHY V-GUARD -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Why Choose V-Guard?</h2>
+          <p>India's most trusted home appliances brand</p>
+          <div class="section-line"></div>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap:32px;">
+          <div style="text-align:center; padding:32px 24px;">
+            <div
+              style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#fde8e9,#fff);margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--primary);">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px;">5-Year Warranty</h3>
+            <p style="font-size:0.88rem;color:var(--text-mid);">Comprehensive warranty on all products with hassle-free
+              service</p>
+          </div>
+          <div style="text-align:center; padding:32px 24px;">
+            <div
+              style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#e8f5e9,#fff);margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--success);">
+              <i class="fas fa-truck"></i>
+            </div>
+            <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px;">Free Delivery</h3>
+            <p style="font-size:0.88rem;color:var(--text-mid);">Free shipping across India on orders above ₹999</p>
+          </div>
+          <div style="text-align:center; padding:32px 24px;">
+            <div
+              style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#e3f2fd,#fff);margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--accent);">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px;">24/7 Support</h3>
+            <p style="font-size:0.88rem;color:var(--text-mid);">Dedicated customer support available round the clock</p>
+          </div>
+          <div style="text-align:center; padding:32px 24px;">
+            <div
+              style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#fff3e0,#fff);margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#FF9800;">
+              <i class="fas fa-star"></i>
+            </div>
+            <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px;">Trusted Brand</h3>
+            <p style="font-size:0.88rem;color:var(--text-mid);">Serving 100M+ Indian homes with quality since 1977</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== PRODUCTS PAGE ===== -->
+  <div id="products-page" class="page-view">
+    <div class="page-content">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="#" onclick="navigateTo('home')">Home</a>
+          <span class="sep">/</span>
+          <span>Products</span>
+        </div>
+        <div class="products-page">
+          <aside class="filter-sidebar" id="filterSidebar">
+            <h3><i class="fas fa-sliders-h"></i> Filters</h3>
+            <div class="filter-group">
+              <h4>Category</h4>
+              <div id="categoryFilters"></div>
+            </div>
+            <div class="filter-group">
+              <h4>Price Range</h4>
+              <input type="range" id="priceRange" min="0" max="50000" value="50000" oninput="applyFilters()">
+              <div
+                style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text-light);margin-top:6px;">
+                <span>₹0</span><span id="priceVal">₹50,000</span>
+              </div>
+            </div>
+            <div class="filter-group">
+              <h4>Rating</h4>
+              <label><input type="checkbox" value="4" onchange="applyFilters()"> ★★★★ & above</label>
+              <label><input type="checkbox" value="3" onchange="applyFilters()"> ★★★ & above</label>
+            </div>
+            <button class="btn btn-outline-dark btn-block btn-sm" onclick="resetFilters()" style="margin-top:12px">
+              <i class="fas fa-redo"></i> Reset Filters
+            </button>
+          </aside>
+          <div class="products-main">
+            <div class="products-topbar">
+              <span class="results-count" id="resultsCount">Showing 0 products</span>
+              <select id="sortSelect" onchange="applyFilters()">
+                <option value="featured">Sort: Featured</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+                <option value="name">Name: A-Z</option>
+              </select>
+            </div>
+            <div class="products-grid" id="allProductsGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PRODUCT DETAIL PAGE ===== -->
+  <div id="detail-page" class="page-view">
+    <div class="page-content">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="#" onclick="navigateTo('home')">Home</a>
+          <span class="sep">/</span>
+          <a href="#" onclick="navigateTo('products')">Products</a>
+          <span class="sep">/</span>
+          <span id="detailBreadcrumb">Product</span>
+        </div>
+        <div class="product-detail" id="productDetail"></div>
+        <section class="section" style="padding-top:40px;">
+          <h2 style="font-size:1.5rem;font-weight:700;margin-bottom:28px;">Related Products</h2>
+          <div class="products-grid" id="relatedProducts"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CHECKOUT PAGE ===== -->
+  <div id="checkout-page" class="page-view">
+    <div class="page-content">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="#" onclick="navigateTo('home')">Home</a>
+          <span class="sep">/</span>
+          <a href="#" onclick="navigateTo('products')">Products</a>
+          <span class="sep">/</span>
+          <span>Checkout</span>
+        </div>
+        <h1 style="font-size:1.8rem;font-weight:700;margin-bottom:28px;"><i class="fas fa-lock"
+            style="color:var(--success);font-size:1.2rem;"></i> Secure Checkout</h1>
+        <div class="checkout-page">
+          <div class="checkout-form">
+            <div class="form-section">
+              <h3><i class="fas fa-map-marker-alt" style="color:var(--primary)"></i> Shipping Address</h3>
+              <div class="form-row">
+                <div class="form-group"><label>First Name</label><input type="text" id="shipFirst"
+                    placeholder="First name" required></div>
+                <div class="form-group"><label>Last Name</label><input type="text" id="shipLast" placeholder="Last name"
+                    required></div>
+              </div>
+              <div class="form-group"><label>Address Line 1</label><input type="text" id="shipAddr1"
+                  placeholder="House/Flat No., Street" required></div>
+              <div class="form-group"><label>Address Line 2</label><input type="text" id="shipAddr2"
+                  placeholder="Landmark, Area"></div>
+              <div class="form-row">
+                <div class="form-group"><label>City</label><input type="text" id="shipCity" placeholder="City" required>
+                </div>
+                <div class="form-group"><label>State</label>
+                  <select id="shipState" required>
+                    <option value="">Select State</option>
+                    <option>Andhra Pradesh</option>
+                    <option>Delhi</option>
+                    <option>Gujarat</option>
+                    <option>Karnataka</option>
+                    <option>Kerala</option>
+                    <option>Maharashtra</option>
+                    <option>Tamil Nadu</option>
+                    <option>Telangana</option>
+                    <option>Uttar Pradesh</option>
+                    <option>West Bengal</option>
+                    <option>Rajasthan</option>
+                    <option>Others</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>PIN Code</label><input type="text" id="shipPin" placeholder="6-digit PIN"
+                    maxlength="6" required></div>
+                <div class="form-group"><label>Phone</label><input type="tel" id="shipPhone"
+                    placeholder="+91 XXXXX XXXXX" required></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="order-summary" id="checkoutSummary"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAYMENT PAGE ===== -->
+  <div id="payment-page" class="page-view">
+    <div class="page-content">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="#" onclick="navigateTo('home')">Home</a><span class="sep">/</span>
+          <a href="#" onclick="navigateTo('checkout')">Checkout</a><span class="sep">/</span>
+          <span>Payment</span>
+        </div>
+        <h1 style="font-size:1.8rem;font-weight:700;margin-bottom:28px;"><i class="fas fa-credit-card"
+            style="color:var(--accent)"></i> Payment</h1>
+        <div class="checkout-page">
+          <div class="checkout-form">
+            <div class="form-section">
+              <h3>Select Payment Method</h3>
+              <div class="payment-methods">
+                <div class="payment-option active" onclick="selectPayment(this, 'upi')">
+                  <input type="radio" name="payment" checked>
+                  <div class="pay-icon"><i class="fas fa-mobile-alt"></i></div>
+                  <div>
+                    <div class="pay-label">UPI Payment</div>
+                    <div class="pay-desc">Google Pay, PhonePe, Paytm</div>
+                  </div>
+                </div>
+                <div class="payment-option" onclick="selectPayment(this, 'card')">
+                  <input type="radio" name="payment">
+                  <div class="pay-icon"><i class="far fa-credit-card"></i></div>
+                  <div>
+                    <div class="pay-label">Credit / Debit Card</div>
+                    <div class="pay-desc">Visa, Mastercard, RuPay</div>
+                  </div>
+                </div>
+                <div class="payment-option" onclick="selectPayment(this, 'netbanking')">
+                  <input type="radio" name="payment">
+                  <div class="pay-icon"><i class="fas fa-university"></i></div>
+                  <div>
+                    <div class="pay-label">Net Banking</div>
+                    <div class="pay-desc">All major banks supported</div>
+                  </div>
+                </div>
+                <div class="payment-option" onclick="selectPayment(this, 'cod')">
+                  <input type="radio" name="payment">
+                  <div class="pay-icon"><i class="fas fa-money-bill-wave"></i></div>
+                  <div>
+                    <div class="pay-label">Cash on Delivery</div>
+                    <div class="pay-desc">Pay when you receive</div>
+                  </div>
+                </div>
+              </div>
+              <div id="paymentForm">
+                <div class="form-group"><label>UPI ID</label><input type="text" placeholder="yourname@upi" id="upiId">
+                </div>
+              </div>
+              <button class="btn btn-primary btn-block btn-lg" onclick="placeOrder()" style="margin-top:16px">
+                <i class="fas fa-lock"></i> Place Order & Pay
+              </button>
+            </div>
+          </div>
+          <div>
+            <div class="order-summary" id="paymentSummary"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ORDER CONFIRMATION PAGE ===== -->
+  <div id="confirmation-page" class="page-view">
+    <div class="page-content">
+      <div class="container">
+        <div class="order-confirm" id="orderConfirm">
+          <div class="check-circle"><i class="fas fa-check"></i></div>
+          <h1>Order Placed Successfully!</h1>
+          <p class="order-id">Order ID: <strong id="orderId">#VG-000000</strong></p>
+          <div class="order-details" id="orderDetails"></div>
+          <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+            <button class="btn btn-primary btn-lg" onclick="navigateTo('home')"><i class="fas fa-home"></i> Continue
+              Shopping</button>
+            <button class="btn btn-outline-dark btn-lg" onclick="showToast('Order tracking coming soon!')"><i
+                class="fas fa-truck"></i> Track Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT PAGE ===== -->
+  <div id="about-page" class="page-view">
+    <div class="page-content">
+      <div class="container">
+        <section class="section" style="max-width:800px;margin:0 auto;">
+          <div class="section-header">
+            <h2>About V-Guard</h2>
+            <div class="section-line"></div>
+          </div>
+          <div style="font-size:0.95rem;color:var(--text-mid);line-height:1.9;">
+            <p style="margin-bottom:16px;">V-Guard Industries Limited, established in 1977, is one of India's most
+              trusted brands for home appliances and electrical products. With over 45 years of excellence, V-Guard has
+              been protecting and empowering Indian homes.</p>
+            <p style="margin-bottom:16px;">From voltage stabilizers to water heaters, ceiling fans to water purifiers,
+              V-Guard offers a comprehensive range of products that combine innovation with reliability. Our commitment
+              to quality has made us a household name across India.</p>
+            <p>Headquartered in Kochi, Kerala, V-Guard operates with a nationwide network of dealers and service
+              centers, ensuring that help is always nearby. With ISO certifications and BIS standards compliance, every
+              V-Guard product is built to deliver lasting performance.</p>
+          </div>
+          <div
+            style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:24px;margin-top:40px;text-align:center;">
+            <div style="padding:24px;background:var(--bg-light);border-radius:var(--radius-lg);">
+              <div style="font-size:2rem;font-weight:800;color:var(--primary);">45+</div>
+              <div style="font-size:0.85rem;color:var(--text-mid);">Years of Trust</div>
+            </div>
+            <div style="padding:24px;background:var(--bg-light);border-radius:var(--radius-lg);">
+              <div style="font-size:2rem;font-weight:800;color:var(--primary);">100M+</div>
+              <div style="font-size:0.85rem;color:var(--text-mid);">Homes Served</div>
+            </div>
+            <div style="padding:24px;background:var(--bg-light);border-radius:var(--radius-lg);">
+              <div style="font-size:2rem;font-weight:800;color:var(--primary);">500+</div>
+              <div style="font-size:0.85rem;color:var(--text-mid);">Products</div>
+            </div>
+            <div style="padding:24px;background:var(--bg-light);border-radius:var(--radius-lg);">
+              <div style="font-size:2rem;font-weight:800;color:var(--primary);">10K+</div>
+              <div style="font-size:0.85rem;color:var(--text-mid);">Service Centers</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="mainFooter">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <span class="footer-logo">V-Guard</span>
+          <p>India's most trusted name in home appliances. Protecting homes since 1977 with innovative, reliable, and
+            energy-efficient products.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#" onclick="navigateTo('home')">Home</a></li>
+            <li><a href="#" onclick="navigateTo('products')">All Products</a></li>
+            <li><a href="#" onclick="navigateTo('about')">About Us</a></li>
+            <li><a href="#">Dealer Locator</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Categories</h3>
+          <ul>
+            <li><a href="#" onclick="navigateTo('products')">Water Heaters</a></li>
+            <li><a href="#" onclick="navigateTo('products')">Ceiling Fans</a></li>
+            <li><a href="#" onclick="navigateTo('products')">Stabilizers</a></li>
+            <li><a href="#" onclick="navigateTo('products')">Water Purifiers</a></li>
+            <li><a href="#" onclick="navigateTo('products')">Kitchen Appliances</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Warranty Registration</a></li>
+            <li><a href="#">Service Request</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+          </ul>
+          <p style="margin-top:16px;"><i class="fas fa-phone-alt" style="color:var(--primary)"></i> 1800-103-1300 (Toll
+            Free)</p>
+          <p><i class="fas fa-envelope" style="color:var(--primary)"></i> support@vguard.in</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 V-Guard Industries Ltd. All rights reserved. | Made with ❤️ in India</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+
+</html>
