@@ -152,7 +152,7 @@ let cart = JSON.parse(sessionStorage.getItem('vguard_cart') || '[]');
 let user = JSON.parse(sessionStorage.getItem('vguard_user') || 'null');
 let currentSlide = 0;
 let heroInterval;
-let registeredUsers = []; 
+let registeredUsers = [];
 
 // ===== HELPERS =====
 function getPageName() {
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartUI();
   checkUser();
   initScrollEffects();
-  
+
   // Page-specific initialization using element detection (safer than URL)
   if (document.getElementById('allProductsGrid')) {
     renderAllProducts();
@@ -192,7 +192,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('checkoutSummary')) renderCheckoutSummary();
   if (document.getElementById('paymentSummary')) renderPaymentSummary();
 
-  
+  // Restore Success Page Flow
+  if (document.getElementById('orderConfirm')) renderOrderConfirmation();
+
+
+
   setTimeout(() => { if (!user && document.getElementById('registerModal')) document.getElementById('registerModal').classList.add('open'); }, 5000);
 });
 
@@ -837,66 +841,38 @@ function finalizeOrderSuccess(methodName, isCod) {
   const finalAmount = total + shipping + tax + (isCod ? 49 : 0);
   const txnId = 'TXN' + Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
   const orderId = 'VG-' + Date.now().toString().slice(-6);
+  const estDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toDateString();
+  const addr = `${document.getElementById('shipFirst')?.value || 'Customer'} ${document.getElementById('shipLast')?.value || ''}, ${document.getElementById('shipAddr1')?.value || 'Delivery Address'}, ${document.getElementById('shipCity')?.value || 'City'}, PIN: ${document.getElementById('shipPin')?.value || 'xxxxxx'}`;
 
+  // Store order data for the confirmation page
+  const orderData = {
+    orderId,
+    finalAmount,
+    methodName,
+    isCod,
+    txnId,
+    estDate,
+    addr,
+    items: [...cart] // Copy current cart before clearing
+  };
+
+  sessionStorage.setItem('vguard_last_order', JSON.stringify(orderData));
+
+  // Success UI in Modal (legacy SPA feel)
   const content = document.getElementById('paymentModalContent');
-  let confettiHtml = Array.from({ length: 40 }).map((_, i) => `<div class="confetti" style="left:${Math.random() * 100}%; background:hsl(${Math.random() * 360}, 80%, 50%); animation: confettiFall ${1 + Math.random() * 1.5}s ease-in forwards; animation-delay: ${Math.random() * 0.3}s"></div>`).join('');
-
-  if (isCod) {
+  if (content) {
+    let confettiHtml = Array.from({ length: 40 }).map((_, i) => `<div class="confetti" style="left:${Math.random() * 100}%; background:hsl(${Math.random() * 360}, 80%, 50%); animation: confettiFall ${1 + Math.random() * 1.5}s ease-in forwards; animation-delay: ${Math.random() * 0.3}s"></div>`).join('');
     content.innerHTML = `
       ${confettiHtml}
       <div style="display:flex;justify-content:center"><div class="success-circle"><i class="fas fa-check"></i></div></div>
-      <h3 style="font-size:1.4rem;margin-bottom:12px;color:var(--success);">Order Confirmed! 🎉</h3>
-      <p style="font-size:1.1rem;font-weight:600;margin-bottom:8px;">Pay ₹${finalAmount.toLocaleString()} to delivery agent</p>
-      <p style="color:var(--text-mid);font-size:0.9rem;">Estimated delivery: ${new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toDateString()}</p>
-    `;
-  } else {
-    content.innerHTML = `
-      ${confettiHtml}
-      <div style="display:flex;justify-content:center"><div class="success-circle"><i class="fas fa-check"></i></div></div>
-      <h3 style="font-size:1.4rem;margin-bottom:12px;color:var(--success);">Payment Successful! 🎉</h3>
-      <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:4px;">Transaction ID: ${txnId}</p>
-      <p style="font-size:1.1rem;font-weight:600;margin-bottom:4px;">Amount Paid: ₹${finalAmount.toLocaleString()}</p>
-      <p style="color:var(--text-light);font-size:0.85rem;">Paid via ${methodName}</p>
+      <h3 style="font-size:1.4rem;margin-bottom:12px;color:var(--success);">${isCod ? 'Order Confirmed!' : 'Payment Successful!'} 🎉</h3>
+      <p style="font-size:1.1rem;font-weight:600;margin-bottom:4px;">Amount: ₹${finalAmount.toLocaleString()}</p>
+      <p style="color:var(--text-mid);font-size:0.9rem;">Finalizing details...</p>
     `;
   }
 
-  // Inject Order Details to UI
-  const estDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toDateString();
-  const addr = `${document.getElementById('shipFirst').value || 'Customer'} ${document.getElementById('shipLast').value || ''}, ${document.getElementById('shipAddr1').value || 'Delivery Address'}, ${document.getElementById('shipCity').value || 'City'}, PIN: ${document.getElementById('shipPin').value || 'xxxxxx'}`;
-
-  document.getElementById('orderId').textContent = '#' + orderId;
-  document.getElementById('orderDetails').innerHTML = `
-    <h3 style="font-size:1.1rem;font-weight:600;margin-bottom:16px;">Order Summary</h3>
-    ${cart.map(item => {
-    const p = products.find(x => x.id === item.id);
-    return p ? `<div style="display:flex; gap:16px; align-items:center; padding:12px 0; border-bottom:1px solid var(--border-light);">
-        <img src="${p.image}" style="width:50px; height:50px; object-fit:contain; border-radius:8px; border:1px solid var(--border-light);">
-        <div style="flex:1;">
-           <div style="font-weight:500;">${p.name}</div>
-           <div style="font-size:0.85rem; color:var(--text-mid);">Qty: ${item.qty}</div>
-        </div>
-        <div style="font-weight:600;">₹${(p.price * item.qty).toLocaleString()}</div>
-      </div>` : '';
-  }).join('')}
-    <div style="display:flex;justify-content:space-between;padding:16px 0 8px;font-size:1.1rem;font-weight:700;">
-      <span>Total Paid</span><span style="color:var(--primary)">₹${finalAmount.toLocaleString()}</span>
-    </div>
-    
-    <div style="background:var(--bg-light); border-radius:8px; padding:16px; margin-top:20px; text-align:left;">
-       <div style="font-weight:600; margin-bottom:8px; display:flex; align-items:center; gap:8px;"><i class="fas fa-truck" style="color:var(--success)"></i> Delivery Details</div>
-       <div style="font-size:0.9rem; color:var(--text-mid); line-height:1.5;">
-          <strong>Estimated Delivery:</strong> ${estDate}<br>
-          <strong>Address:</strong> ${addr}<br>
-          <strong>Payment Method:</strong> ${methodName}<br>
-          ${!isCod ? `<strong>Transaction ID:</strong> ${txnId}` : ''}
-       </div>
-    </div>
-  `;
-
   setTimeout(() => {
-    // Fade out modal and navigate!
-    document.getElementById('payment-modal-container').innerHTML = '';
-
+    // Clear Cart and Redirect
     cart = [];
     saveCart();
     updateCartUI();
@@ -908,24 +884,71 @@ function finalizeOrderSuccess(methodName, isCod) {
     }
 
     navigateTo('confirmation');
+  }, 2500);
+}
 
-    // Start countdown
-    let timeLeft = 5;
-    const timerDisplay = document.getElementById('redirectTimer');
-    if (timerDisplay) {
-      timerDisplay.textContent = `Redirecting to home in ${timeLeft}...`;
-      const countdownInterval = setInterval(() => {
-        timeLeft--;
-        if (timeLeft > 0) {
-          timerDisplay.textContent = `Redirecting to home in ${timeLeft}...`;
-        } else {
-          clearInterval(countdownInterval);
-          navigateTo('home');
-          showToast(`Thank you for your order! Your order ${orderId} has been placed successfully 🎉`, 'success', 4000);
-        }
-      }, 1000);
-    }
-  }, 3500);
+function renderOrderConfirmation() {
+  const orderDataStr = sessionStorage.getItem('vguard_last_order');
+  if (!orderDataStr) {
+    window.location.href = 'index.html'; // No order found, safety fallback
+    return;
+  }
+
+  const data = JSON.parse(orderDataStr);
+
+  // Fill Order ID
+  const orderIdEl = document.getElementById('orderId');
+  if (orderIdEl) orderIdEl.textContent = '#' + data.orderId;
+
+  // Fill Order Summary
+  const detailsEl = document.getElementById('orderDetails');
+  if (detailsEl) {
+    detailsEl.innerHTML = `
+      <h3 style="font-size:1.1rem;font-weight:600;margin-bottom:16px;">Order Summary</h3>
+      ${data.items.map(item => {
+      const p = products.find(x => x.id === item.id);
+      return p ? `<div style="display:flex; gap:16px; align-items:center; padding:12px 0; border-bottom:1px solid var(--border-light);">
+          <img src="${p.image}" style="width:50px; height:50px; object-fit:contain; border-radius:8px; border:1px solid var(--border-light);">
+          <div style="flex:1;">
+             <div style="font-weight:500;">${p.name}</div>
+             <div style="font-size:0.85rem; color:var(--text-mid);">Qty: ${item.qty}</div>
+          </div>
+          <div style="font-weight:600;">₹${(p.price * item.qty).toLocaleString()}</div>
+        </div>` : '';
+    }).join('')}
+      <div style="display:flex;justify-content:space-between;padding:16px 0 8px;font-size:1.1rem;font-weight:700;">
+        <span>Total Paid</span><span style="color:var(--primary)">₹${data.finalAmount.toLocaleString()}</span>
+      </div>
+      
+      <div style="background:var(--bg-light); border-radius:8px; padding:16px; margin-top:20px; text-align:left;">
+         <div style="font-weight:600; margin-bottom:8px; display:flex; align-items:center; gap:8px;"><i class="fas fa-truck" style="color:var(--success)"></i> Delivery Details</div>
+         <div style="font-size:0.9rem; color:var(--text-mid); line-height:1.5;">
+            <strong>Estimated Delivery:</strong> ${data.estDate}<br>
+            <strong>Address:</strong> ${data.addr}<br>
+            <strong>Payment Method:</strong> ${data.methodName}<br>
+            ${!data.isCod ? `<strong>Transaction ID:</strong> ${data.txnId}` : ''}
+         </div>
+      </div>
+    `;
+  }
+
+  // Auto-Redirect Timer
+  let timeLeft = 5;
+  const timerDisplay = document.getElementById('redirectTimer');
+  if (timerDisplay) {
+    timerDisplay.textContent = `Redirecting to home in ${timeLeft}...`;
+    const countdownInterval = setInterval(() => {
+      timeLeft--;
+      if (timeLeft > 0) {
+        timerDisplay.textContent = `Redirecting to home in ${timeLeft}...`;
+      } else {
+        clearInterval(countdownInterval);
+        sessionStorage.removeItem('vguard_last_order'); // Clean up
+        window.location.href = 'index.html';
+      }
+    }, 1000);
+  }
+}
 }
 
 // ===== SEARCH =====
