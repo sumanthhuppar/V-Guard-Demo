@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>">
+  <script src="https://cdn.c360a.salesforce.com/beacon/c360a/efc6bc1c-a8f8-4542-b229-f852449c9797/scripts/c360a.min.js"></script>
 </head>
 
 <body>
@@ -118,7 +119,7 @@
                 <div class="form-group"><label>UPI ID</label><input type="text" placeholder="yourname@upi" id="upiId">
                 </div>
               </div>
-              <button class="btn btn-primary btn-block btn-lg" onclick="placeOrder()" style="margin-top:16px">
+              <button id="placeOrder" class="btn btn-primary btn-block btn-lg" onclick="placeOrder()" style="margin-top:16px">
                 <i class="fas fa-lock"></i> Place Order & Pay
               </button>
             </div>

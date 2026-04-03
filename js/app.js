@@ -514,7 +514,7 @@ function renderProductDetail(productId) {
         </div>
       </div>
       <div class="detail-actions">
-        <button class="btn btn-primary btn-lg" onclick="addToCart('${p.id}', getQty())">
+        <button id="addToCart" class="btn btn-primary btn-lg" onclick="addToCart('${p.id}', getQty())">
           <i class="fas fa-cart-plus"></i> Add to Cart
         </button>
         <button class="btn btn-accent btn-lg" onclick="addToCart('${p.id}', getQty()); navigateTo('checkout');">
