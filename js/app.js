@@ -192,10 +192,23 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('checkoutSummary')) renderCheckoutSummary();
   if (document.getElementById('paymentSummary')) renderPaymentSummary();
 
-  // Restore Success Page Flow
+  // Restore Success Page Flow (Order Confirmation)
   if (document.getElementById('orderConfirm')) renderOrderConfirmation();
 
-
+  // Registration Success Notification (Persistence across redirect)
+  const regSuccess = sessionStorage.getItem('vguard_reg_success');
+  if (regSuccess) {
+    const savedUser = sessionStorage.getItem('vguard_user');
+    if (savedUser) {
+      user = JSON.parse(savedUser);
+      updateAuthUI(); // Temporary "Hi Puneeth"
+      showToast(`Account created successfully! Welcome, ${user.firstName}! 🎉`, 'success');
+      
+      // Clear after first load so it's fresh on repeat
+      sessionStorage.removeItem('vguard_user');
+      sessionStorage.removeItem('vguard_reg_success');
+    }
+  }
 
   setTimeout(() => { if (!user && document.getElementById('registerModal')) document.getElementById('registerModal').classList.add('open'); }, 5000);
 });
@@ -999,28 +1012,26 @@ function handleRegisterPage(event) {
   const firstName = document.getElementById('regFirstName')?.value.trim();
   const lastName = document.getElementById('regLastName')?.value.trim();
   const email = document.getElementById('regEmailPage')?.value.trim();
-  const phone = document.getElementById('regPhonePage')?.value.trim();
   const password = document.getElementById('regPasswordPage')?.value;
-  const confirmPassword = document.getElementById('regConfirmPassword')?.value;
 
-  if (!firstName || !lastName || !email || !phone || !password) {
+  if (!firstName || !lastName || !email || !password) {
     showToast('Please fill all fields', 'error');
     return;
   }
-  if (password !== confirmPassword) {
-    showToast('Passwords do not match!', 'error');
-    return;
-  }
-  if (registeredUsers.find(u => u.email === email)) {
-    showToast('User already exists! Please login.', 'error');
-    return;
-  }
+  
   const fullName = firstName + ' ' + lastName;
-  registeredUsers.push({ name: fullName, firstName, lastName, email, phone, password });
-  user = { name: fullName, firstName, lastName, email, phone };
+  user = { name: fullName, firstName, lastName, email };
+  
+  // Persist user in sessionStorage (Temporary per tab)
+  sessionStorage.setItem('vguard_user', JSON.stringify(user));
+  
+  // Set success flag for the next page load
+  sessionStorage.setItem('vguard_reg_success', '1');
+  
   updateAuthUI();
-  showToast(`Account created successfully! Welcome, ${firstName}! 🎉`, 'success');
-  navigateTo('home');
+  
+  // Redirect immediately; the toast will be shown on the home page
+  window.location.href = 'index.html';
 }
 
 function updateAuthUI() {
@@ -1047,7 +1058,8 @@ function showUserMenu() {
 }
 
 function checkUser() {
-  user = null; // Start fresh for MPA demo
+  // Start fresh on every load (unless handled by the one-time redirect logic above)
+  user = null;
   updateAuthUI();
 }
 
